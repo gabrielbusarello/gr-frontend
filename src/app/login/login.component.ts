@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,9 +14,19 @@ export class LoginComponent implements OnInit {
     pass: new FormControl(null, [ Validators.required ])
   });
 
-  constructor() { }
+  public mensagemErro: string;
+
+  constructor( private router: Router ) { }
 
   ngOnInit() {
+  }
+
+  public login() {
+    if (this.form.controls.matCpf.value === '123' && this.form.controls.pass.value === '123') {
+      this.router.navigate(['/']);
+    } else {
+      this.mensagemErro = 'Matrícula/CPF ou senha errados';
+    }
   }
 
 }
