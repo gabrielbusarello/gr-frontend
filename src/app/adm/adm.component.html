@@ -1,2 +1,19 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
+<app-header (collapsedSidebar)="collapseSidebar()"></app-header>
+<div class="wrapper">
+    <div class="sidebar" [class.active]="collapsedSidebar">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="content col-sm bg-primary-less pb-3">
+        <nav class="container" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/"><i class="fas fa-home"></i></a></li>
+                <li class="breadcrumb-item active" aria-current="page" *ngIf="!action && page">{{ page }}</li>
+                <li class="breadcrumb-item active" aria-current="page" *ngIf="action && page"><a [routerLink]="['/' + link]">{{ page }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page" *ngIf="action">{{ action }}</li>
+            </ol>
+            <router-outlet></router-outlet>
+        </nav>
+    </div>
+    <div class="overlay" [class.active]="collapsedSidebar" (click)="collapseSidebar()"></div>
+</div>
+<app-footer></app-footer>

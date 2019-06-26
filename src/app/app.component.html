@@ -1,1 +1,8 @@
-<router-outlet></router-outlet>
+<div class="d-flex justify-content-center align-items-center" style="height: 100vh"*ngIf="loadingModules">
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+        <span class="sr-only">Carregando...</span>
+        </div>
+    </div>
+</div>
+<router-outlet *ngIf="!loadingModules"></router-outlet>

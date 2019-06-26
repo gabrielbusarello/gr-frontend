@@ -1,0 +1,112 @@
+<div class="card">
+  <div class="card-body">
+    <div class="card-title">Novo Usuário</div>
+    <form novalidate [formGroup]="form" (ngSubmit)="send()">
+      <div class="row">
+        <div class="form-group col-12" *ngIf="espaco && !novo">
+          <label for="id">ID</label>
+          <input type="text" class="form-control text-danger" id="id" aria-label="ID" formControlName="id">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-12 col-sm-6">
+          <label for="reg"><strong>*</strong> Matrícula</label>
+          <input
+            type="text"
+            class="form-control"
+            [class.is-valid]="form.get('reg').touched && form.get('reg').valid"
+            [class.is-invalid]="form.get('reg').touched && form.get('reg').invalid"
+            id="reg" 
+            formControlName="reg"
+          >
+          <div class="invalid-feedback">Matrícula inválido</div>
+        </div>
+        <div class="form-group col-12 col-sm-6">
+          <label for="cpf"><strong>*</strong> CPF</label>
+          <input
+            type="text"
+            class="form-control"
+            [class.is-valid]="form.get('cpf').touched && form.get('cpf').valid"
+            [class.is-invalid]="form.get('cpf').touched && form.get('cpf').invalid"
+            id="cpf" 
+            formControlName="cpf"
+            mask="000.000.000-00"
+          >
+          <div class="invalid-feedback">CPF inválido</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-12 col-sm-7">
+          <label for="email"><strong>*</strong> E-mail</label>
+          <input
+          type="text"
+          class="form-control"
+          [class.is-valid]="form.get('email').touched && form.get('email').valid"
+          [class.is-invalid]="form.get('email').touched && form.get('email').invalid"
+          id="email" 
+          formControlName="email"
+          >
+          <div class="invalid-feedback">E-mail inválido</div>
+        </div>
+        <div class="form-group col-12 col-sm-5">
+          <label for="password"><strong>*</strong> Senha</label>
+          <input
+            type="password"
+            class="form-control"
+            [class.is-valid]="form.get('password').touched && form.get('password').valid"
+            [class.is-invalid]="form.get('password').touched && form.get('password').invalid"
+            id="password" 
+            formControlName="password"
+          >
+          <div class="invalid-feedback">Senha inválida</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-12">
+          <label for="name"><strong>*</strong> Nome Completo</label>
+          <input
+            type="text"
+            class="form-control"
+            [class.is-valid]="form.get('name').touched && form.get('name').valid"
+            [class.is-invalid]="form.get('name').touched && form.get('name').invalid"
+            id="name" 
+            formControlName="name"
+          >
+          <div class="invalid-feedback">Nome Completo inválido</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-12 col-sm-6">
+          <label for="phone">Telefone</label>
+          <input
+            type="text"
+            class="form-control"
+            [class.is-valid]="form.get('phone').touched && form.get('phone').valid"
+            [class.is-invalid]="form.get('phone').touched && form.get('phone').invalid"
+            id="phone" 
+            formControlName="phone"
+            [mask]="form.get('phone').value && form.get('phone').value.length == 11 ? '(00) 0 0000-0000' : '(00) 0000-00009'"
+          >
+          <div class="invalid-feedback">Telefone inválido</div>
+        </div>
+        <div class="form-group col-12 col-sm-6">
+          <label for="bloco"><strong>*</strong> Permissão</label>
+          <ng-select
+            [searchable]="false"
+            [items]="permissions"
+            bindLabel="value"
+            bindValue="id"
+            labelForId="permission"
+            placeholder="Selecione uma permissão"
+            formControlName="permission"
+          ></ng-select>
+          <div class="invalid-feedback" [class.d-block]="form.get('permission').touched && form.get('permission').invalid">Permissão inválida</div>
+        </div>
+      </div>
+      <div>
+        <button type="button" class="btn btn-light" routerLink="/usuarios"><i class="fas fa-chevron-left"></i> Voltar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid || bloqueiaEnvio"><i class="fas fa-save"></i> Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>

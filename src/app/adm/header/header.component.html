@@ -1,3 +1,13 @@
-<p>
-  header works!
-</p>
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-primary">
+  <a class="navbar-brand" routerLink="/">
+    <img src="../../../assets/logo.png" class="img-fluid" width="400" height="40" alt="Logo">
+  </a>
+  <button class="navbar-toggler" type="button" (click)="collapseSidebar()">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse justify-content-end">
+    <span class="mr-4">Gabriel Dezan Busarello</span>
+    <button class="btn btn-primary-less" type="button" routerLink="/login"><i class="fas fa-sign-out-alt"></i> Sair</button>
+  </div>
+</nav>

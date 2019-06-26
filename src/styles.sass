@@ -3,7 +3,7 @@
 $body-bg: #dcd2aa
 $body-color: #010101
 
-$theme-colors: ("primary": #dcd2aa, "danger": #c2282d)
+$theme-colors: ("primary": #dcd2aa, "danger": #c2282d, "primary-less": #f8f5ed)
 
 @import "../node_modules/bootstrap/scss/bootstrap"
 
@@ -14,9 +14,68 @@ $theme-colors: ("primary": #dcd2aa, "danger": #c2282d)
     .card
         width: 330px
 
-.torce
-    -webkit-transform: translate3d(0, 0, 0) skew(-20deg, 0deg)
-    -moz-transform: translate3d(0, 0, 0) skew(-20deg, 0deg)
-    -ms-transform: translate3d(0, 0, 0) skew(-20deg, 0deg)
-    transform: translate3d(0, 0, 0) skew(-20deg, 0deg)
-    background: #f1f1f1
+.wrapper
+    display: flex
+    width: 100%
+    align-items: stretch
+
+.sidebar
+    width: 250px
+    height: 93.2vh
+    margin-top: 66px
+    transition: all 0.3s
+    position: fixed
+    top: 0
+    left: 0
+    z-index: 100
+    overflow: hidden
+    background: #fff
+    border-right: 1px solid
+    border-color: rgba(0,0,0,.125)
+
+    &:hover
+        overflow: auto
+    
+    li, a
+        border-right: none
+        text-decoration: none
+
+.overlay
+    display: none
+    position: fixed
+    width: 100vw
+    height: 100vh
+    background: rgba(0, 0, 0, 0.5)
+    z-index: 99
+    opacity: 0
+    transition: all 0.5s ease-in-out
+
+.content
+    padding-top: 90px
+    padding-left: 260px
+
+    @media (max-width: 991px)
+        padding-left: 10px
+
+
+@media (max-width: 991px)
+    .sidebar
+        margin-left: -250px
+        overflow: auto
+
+    .sidebar.active
+        margin-left: 0
+        position: absolute
+
+    .overlay.active
+        display: block
+        opacity: 1
+
+.ng-select
+    &.ng-touched
+            &.ng-invalid
+                .ng-select-container
+                    border-color: map-get($theme-colors, "danger")
+            &.ng-valid
+                .ng-select-container
+                    border-color: map-get($theme-colors, "success")
