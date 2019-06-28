@@ -41,7 +41,7 @@ export class UsersComponent implements OnInit {
    * @param name: string
    */
   public delete(id: number, name: string) {
-    const modal = this.modalService.open(DeleteComponent);
+    const modal = this.modalService.open(DeleteComponent, { centered: true });
     modal.componentInstance.name = name;
     modal.result.then(resultado => {
       if (resultado.status) {

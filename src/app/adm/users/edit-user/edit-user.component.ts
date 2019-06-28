@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import User, { UserResponse } from 'src/app/shared/user.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-user',
@@ -13,7 +14,7 @@ import User, { UserResponse } from 'src/app/shared/user.model';
 })
 export class EditUserComponent implements OnInit, OnDestroy {
 
-  private permissions: Array<{ id: string, value: string }> = [
+  public permissions: Array<{ id: string, value: string }> = [
     { id: 'I', value: 'Interno' },
     { id: 'P', value: 'Prestador' },
     { id: 'C', value: 'Cliente' }
@@ -32,10 +33,12 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
   private subRoute: Subscription;
   public new: boolean;
+  public blockSend: boolean;
 
-  constructor( private route: ActivatedRoute, private userService: UserService, private router: Router ) { }
+  constructor( private route: ActivatedRoute, private userService: UserService, private router: Router, private toastr: ToastrService ) { }
 
   ngOnInit() {
+    this.toastr.success(`Testando`, `Testando`);
     this.subRoute = this.route.params.subscribe((param: Params) => {
       if (param.id !== undefined) {
         this.new = false;
@@ -73,6 +76,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
    * send
    */
   public send(): void {
+    this.blockSend = true;
     const user: User = new User(
       this.form.controls.reg.value,
       this.form.controls.cpf.value,
@@ -89,6 +93,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
         this.router.navigate(['/usuarios']);
       },
       (err: any) => {
+        this.blockSend = false;
         console.log(err);
       }
     );
