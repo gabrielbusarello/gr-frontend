@@ -5,15 +5,21 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { ToastrModule } from 'ngx-toastr';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxMaskModule } from 'ngx-mask';
+
+import { UtilsService } from './services/utils.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -25,9 +31,11 @@ import { LoginComponent } from './login/login.component';
       progressBar: true,
       progressAnimation: 'increasing',
       preventDuplicates: true
-    })
+    }),
+    NgSelectModule,
+    NgxMaskModule.forRoot()
   ],
-  providers: [],
+  providers: [ UtilsService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

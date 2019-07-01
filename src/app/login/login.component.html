@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row logincontainer">
     <div class="col-12 col-sm-6 d-flex justify-content-center align-items-center">
-      <img src="../../assets/logomarca.png" class="img-fluid logomarca" />
+      <img src="../../assets/logomarca.png" class="img-fluid" />
     </div>
     <div class="col-12 col-sm-6 d-flex justify-content-center align-items-center">
       <div class="card">
@@ -18,15 +18,15 @@
               <input
                 type="text"
                 class="form-control"
-                [class.is-valid]="form.get('matCpf').touched && form.get('matCpf').valid"
-                [class.is-invalid]="form.get('matCpf').touched && form.get('matCpf').invalid"
-                id="matCpf"
-                placeholder="Matrícula/CPF"
-                aria-label="Matrícula/CPF"
+                [class.is-valid]="form.get('cpf').touched && form.get('cpf').valid"
+                [class.is-invalid]="form.get('cpf').touched && form.get('cpf').invalid"
+                id="cpf"
+                placeholder="CPF"
+                aria-label="CPF"
                 aria-describedby="fa-user"
-                formControlName="matCpf"
+                formControlName="cpf"
               />
-              <div class="invalid-feedback">Matrícula/CPF inválido</div>
+              <div class="invalid-feedback">CPF inválido</div>
             </div>
             <div class="input-group pb-3">
               <div class="input-group-prepend">
@@ -54,7 +54,7 @@
             </div>
             <div class="dropdown-divider mt-3 mb-3"></div>
             <p>Ainda não tem uma conta?</p>
-            <a href="#" class="card-link">Abra uma conta</a>
+            <a routerLink="/signup" class="card-link">Abra uma conta</a>
           </form>
         </div>
       </div>

@@ -1,6 +1,5 @@
 export default class User {
     constructor(
-        private matricula: string,
         private cpf: string,
         private nome: string,
         private email: string,
@@ -12,7 +11,6 @@ export default class User {
 
 export interface UserResponse {
     id: number;
-    matricula: string;
     cpf: string;
     nome: string;
     email: string;

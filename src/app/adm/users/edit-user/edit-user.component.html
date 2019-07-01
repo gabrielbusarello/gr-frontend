@@ -9,19 +9,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="form-group col-12 col-sm-6">
-          <label for="reg"><strong>*</strong> Matrícula</label>
-          <input
-            type="text"
-            class="form-control"
-            [class.is-valid]="form.get('reg').touched && form.get('reg').valid"
-            [class.is-invalid]="form.get('reg').touched && form.get('reg').invalid"
-            id="reg" 
-            formControlName="reg"
-          >
-          <div class="invalid-feedback">Matrícula inválido</div>
-        </div>
-        <div class="form-group col-12 col-sm-6">
+        <div class="form-group col-12 col-sm-4">
           <label for="cpf"><strong>*</strong> CPF</label>
           <input
             type="text"
@@ -34,9 +22,7 @@
           >
           <div class="invalid-feedback">CPF inválido</div>
         </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-12 col-sm-7">
+        <div class="form-group col-12 col-sm-5">
           <label for="email"><strong>*</strong> E-mail</label>
           <input
           type="text"
@@ -48,7 +34,7 @@
           >
           <div class="invalid-feedback">E-mail inválido</div>
         </div>
-        <div class="form-group col-12 col-sm-5">
+        <div class="form-group col-12 col-sm-3">
           <label for="password"><strong>*</strong> Senha</label>
           <input
             type="password"

@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { NgbDropdownModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { NgxMaskModule } from 'ngx-mask';
 
 import { AdmRoutingModule } from './adm-routing.module';
 import { HeaderComponent } from './header/header.component';
@@ -32,9 +30,7 @@ import { DeleteComponent } from './delete/delete.component';
     AdmRoutingModule,
     NgbDropdownModule,
     ReactiveFormsModule,
-    NgSelectModule,
-    NgbModalModule,
-    NgxMaskModule.forRoot()
+    NgbModalModule
   ],
   entryComponents: [ DeleteComponent ],
   exports: [

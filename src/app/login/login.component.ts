@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   public form: FormGroup = new FormGroup({
-    matCpf: new FormControl(null, [ Validators.required ]),
+    cpf: new FormControl(null, [ Validators.required ]),
     pass: new FormControl(null, [ Validators.required ])
   });
 
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   }
 
   public login() {
-    if (this.form.controls.matCpf.value === '123' && this.form.controls.pass.value === '123') {
+    if (this.form.controls.cpf.value === '123' && this.form.controls.pass.value === '123') {
       this.router.navigate(['/']);
     } else {
       this.mensagemErro = 'Matrícula/CPF ou senha errados';

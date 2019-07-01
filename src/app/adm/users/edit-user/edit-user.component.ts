@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import User, { UserResponse } from 'src/app/shared/user.model';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-user',
@@ -22,7 +21,6 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
   public form: FormGroup = new FormGroup({
     id:         new FormControl({ value: null, disabled: true }),
-    reg:        new FormControl(null, [ Validators.required, Validators.maxLength(30), Validators.pattern('[0-9]*') ]),
     cpf:        new FormControl(null, [ Validators.required, Validators.maxLength(15), Validators.pattern('[0-9]*') ]),
     name:       new FormControl(null, [ Validators.required, Validators.maxLength(100) ]),
     email:      new FormControl(null, [ Validators.required, Validators.email, Validators.maxLength(70) ]),
@@ -35,10 +33,9 @@ export class EditUserComponent implements OnInit, OnDestroy {
   public new: boolean;
   public blockSend: boolean;
 
-  constructor( private route: ActivatedRoute, private userService: UserService, private router: Router, private toastr: ToastrService ) { }
+  constructor( private route: ActivatedRoute, private userService: UserService, private router: Router ) { }
 
   ngOnInit() {
-    this.toastr.success(`Testando`, `Testando`);
     this.subRoute = this.route.params.subscribe((param: Params) => {
       if (param.id !== undefined) {
         this.new = false;
@@ -58,7 +55,6 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.userService.getUserById(id).subscribe(
       (response: UserResponse) => {
         this.form.controls.id.setValue(response.id, { onlySelf: true });
-        this.form.controls.reg.setValue(response.matricula, { onlySelf: true });
         this.form.controls.cpf.setValue(response.cpf, { onlySelf: true });
         this.form.controls.name.setValue(response.nome, { onlySelf: true });
         this.form.controls.email.setValue(response.email, { onlySelf: true });
@@ -78,7 +74,6 @@ export class EditUserComponent implements OnInit, OnDestroy {
   public send(): void {
     this.blockSend = true;
     const user: User = new User(
-      this.form.controls.reg.value,
       this.form.controls.cpf.value,
       this.form.controls.name.value,
       this.form.controls.email.value,

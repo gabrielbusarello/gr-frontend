@@ -3,6 +3,8 @@
 $body-bg: #dcd2aa
 $body-color: #010101
 
+$mine-bg: #fafafa
+
 $theme-colors: ("primary": #dcd2aa, "danger": #c2282d, "primary-less": #f8f5ed)
 
 @import "~bootstrap/scss/bootstrap"
@@ -10,10 +12,17 @@ $theme-colors: ("primary": #dcd2aa, "danger": #c2282d, "primary-less": #f8f5ed)
 
 .logincontainer
     height: 100vh
-    background: #fafafa
+    background: $mine-bg
 
     .card
         width: 330px
+
+.signupcontainer
+    background: $mine-bg
+
+    .card
+        width: 400px
+
 
 .wrapper
     display: flex
