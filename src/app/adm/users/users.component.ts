@@ -5,6 +5,7 @@ import { DeleteComponent } from '../delete/delete.component';
 import { UserService } from '../../services/user.service';
 
 import { UserResponse } from 'src/app/shared/user.model';
+import { DefaultResponse } from 'src/app/shared/app.model';
 
 @Component({
   selector: 'app-users',
@@ -26,8 +27,8 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getUsers().subscribe(
-      (response: Array<UserResponse>) => {
-        this.users = response;
+      (response: DefaultResponse<Array<UserResponse>>) => {
+        this.users = response.data;
       },
       (err: any) => {
         console.log(err);

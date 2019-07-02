@@ -22,6 +22,7 @@
                 aria-label="CPF"
                 aria-describedby="fa-user"
                 formControlName="cpf"
+                mask="000.000.000-00"
               />
               <div class="invalid-feedback">CPF inválido</div>
             </div>
@@ -30,15 +31,15 @@
                 <span class="input-group-text" id="fa-envelope"><i class="fas fa-envelope"></i></span>
               </div>
               <input
-              type="text"
-              class="form-control"
-              [class.is-valid]="form.get('email').touched && form.get('email').valid"
-              [class.is-invalid]="form.get('email').touched && form.get('email').invalid"
-              id="email"
-              placeholder="* Email"
-              aria-label="Email"
-              aria-describedby="fa-envelope"
-              formControlName="email"
+                type="text"
+                class="form-control"
+                [class.is-valid]="form.get('email').touched && form.get('email').valid"
+                [class.is-invalid]="form.get('email').touched && form.get('email').invalid"
+                id="email"
+                placeholder="* Email"
+                aria-label="Email"
+                aria-describedby="fa-envelope"
+                formControlName="email"
               >
               <div class="invalid-feedback">E-mail inválido</div>
             </div>
@@ -108,10 +109,10 @@
               <div class="invalid-feedback" [class.d-block]="form.get('permission').touched && form.get('permission').invalid">Tipo de Usuário inválido</div>
             </div>
             <div class="d-flex justify-content-end">
-              <button type="submit" class="btn btn-primary" [disabled]="form.invalid || bloqueiaEnvio">
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="bloqueiaEnvio"></span>
-                <span class="sr-only" *ngIf="bloqueiaEnvio">Carregando...</span>
-                <i class="fas fa-sign-in-alt" *ngIf="!bloqueiaEnvio"></i> Cadastrar
+              <button type="submit" class="btn btn-primary" [disabled]="form.invalid || blockSend">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="blockSend"></span>
+                <span class="sr-only" *ngIf="blockSend">Carregando...</span>
+                <i class="fas fa-sign-in-alt" *ngIf="!blockSend"></i> Cadastrar
               </button>
             </div>
             <div class="dropdown-divider mt-3 mb-3"></div>

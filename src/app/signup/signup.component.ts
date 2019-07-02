@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import User, { UserResponse } from '../shared/user.model';
 import { UserService } from '../services/user.service';
+import { UtilsService } from '../services/utils.service';
+import { DefaultResponse } from '../shared/app.model';
 
 @Component({
   selector: 'app-signup',
@@ -29,7 +32,7 @@ export class SignupComponent implements OnInit {
 
   public blockSend: boolean;
 
-  constructor( private userService: UserService, private router: Router ) { }
+  constructor( private userService: UserService, private router: Router, private utils: UtilsService ) { }
 
   ngOnInit() {
   }
@@ -46,13 +49,13 @@ export class SignupComponent implements OnInit {
     );
 
     this.userService.sendUser(user).subscribe(
-      (response: UserResponse) => {
-        console.log(response);
-        this.router.navigate(['/usuarios']);
+      (response: DefaultResponse<UserResponse>) => {
+        this.utils.showToast(response.status, response.mensagem);
+        this.router.navigate(['/login']);
       },
-      (err: any) => {
+      (err: HttpErrorResponse) => {
+        this.utils.showToast(3, err.message);
         this.blockSend = false;
-        console.log(err);
       }
     );
   }

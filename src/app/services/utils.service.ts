@@ -7,19 +7,24 @@ export class UtilsService {
 
     constructor( private toastr: ToastrService ) { }
 
+    /**
+     * showToast - Método para disparar os toasts na tela.
+     * @param code: number
+     * @param message: string
+     */
     public showToast(code: number, message: string): void {
         switch (code) {
             case 1:
-                this.toastr.success(`Sucesso`, message);
+                this.toastr.success(message, `Sucesso`);
                 break;
             case 2:
-                this.toastr.info(`Informação`, message);
+                this.toastr.info(message, `Informação`);
                 break;
             case 3:
-                this.toastr.error(`Erro`, message);
+                this.toastr.error(message, `Erro`);
                 break;
             default:
-                this.toastr.warning(`Atenção`, message);
+                this.toastr.warning(message, `Atenção`);
         }
     }
 

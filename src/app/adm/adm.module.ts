@@ -13,6 +13,9 @@ import { UsersComponent } from './users/users.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DeleteComponent } from './delete/delete.component';
+import { ToastrModule } from 'ngx-toastr';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,14 @@ import { DeleteComponent } from './delete/delete.component';
     AdmRoutingModule,
     NgbDropdownModule,
     ReactiveFormsModule,
-    NgbModalModule
+    NgbModalModule,
+    ToastrModule.forRoot({
+      progressBar: true,
+      progressAnimation: 'increasing',
+      preventDuplicates: true
+    }),
+    NgSelectModule,
+    NgxMaskModule.forRoot()
   ],
   entryComponents: [ DeleteComponent ],
   exports: [

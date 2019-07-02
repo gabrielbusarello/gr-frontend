@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { retry, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
@@ -20,6 +20,20 @@ export class UserService {
     public getUsers(): Observable<any> {
         return this.http.get(
             `${environment.urlApi}/usuario`,
+            { headers: this.headers }
+        ).pipe(
+            map((response: HttpResponse<Observable<any>>) => response)
+        );
+    }
+
+    /**
+     * authUser
+     * @param cpf: string
+     * @param senha: string
+     */
+    public authUser(cpf: string, senha: string): Observable<any> {
+        return this.http.get(
+            `${environment.urlApi}/usuario?user=${cpf}&password=${senha}`,
             { headers: this.headers }
         ).pipe(
             map((response: HttpResponse<Observable<any>>) => response)
