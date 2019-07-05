@@ -12,7 +12,8 @@ export class UserService {
 
     private headers: HttpHeaders = new HttpHeaders()
         .append('Content-Type', 'application/json')
-        .append('Access-Control-Allow-Origin', '*');
+        .append('Access-Control-Allow-Origin', '*')
+        .append('Authorization', localStorage.getItem('token'));
 
     /**
      * getUsers
@@ -28,12 +29,17 @@ export class UserService {
 
     /**
      * authUser
-     * @param cpf: string
-     * @param senha: string
+     * @param username: string
+     * @param password: string
      */
-    public authUser(cpf: string, senha: string): Observable<any> {
-        return this.http.get(
-            `${environment.urlApi}/usuario?user=${cpf}&password=${senha}`,
+    public authUser(username: string, password: string): Observable<any> {
+        const auth: { username: string, password: string } = {
+            username,
+            password
+        }
+        return this.http.post(
+            `${environment.urlApi}/authenticate`,
+            JSON.stringify(auth),
             { headers: this.headers }
         ).pipe(
             map((response: HttpResponse<Observable<any>>) => response)
@@ -69,7 +75,7 @@ export class UserService {
             );
         } else {
             return this.http.post(
-                `${environment.urlApi}/usuario`,
+                `${environment.urlApi}/register`,
                 JSON.stringify(user),
                 { headers: this.headers }
             ).pipe(

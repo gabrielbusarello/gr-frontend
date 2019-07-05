@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import User, { UserResponse } from 'src/app/shared/user.model';
+import { DefaultResponse } from 'src/app/shared/app.model';
 
 @Component({
   selector: 'app-edit-user',
@@ -37,7 +38,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subRoute = this.route.params.subscribe((param: Params) => {
-      if (param.id !== undefined) {
+      if (param.id) {
         this.new = false;
         this.form.controls.id.setValue(param.id, {onlySelf: true});
         this.getUserById(param.id);
@@ -53,14 +54,14 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
   private getUserById(id: number): void {
     this.userService.getUserById(id).subscribe(
-      (response: UserResponse) => {
-        this.form.controls.id.setValue(response.id, { onlySelf: true });
-        this.form.controls.cpf.setValue(response.cpf, { onlySelf: true });
-        this.form.controls.name.setValue(response.nome, { onlySelf: true });
-        this.form.controls.email.setValue(response.email, { onlySelf: true });
-        this.form.controls.password.setValue(response.senha, { onlySelf: true });
-        this.form.controls.phone.setValue(response.telefone, { onlySelf: true });
-        this.form.controls.permission.setValue(response.permissao, { onlySelf: true });
+      (response: DefaultResponse<UserResponse>) => {
+        this.form.controls.id.setValue(response.data.id, { onlySelf: true });
+        this.form.controls.cpf.setValue(response.data.cpf, { onlySelf: true });
+        this.form.controls.name.setValue(response.data.nome, { onlySelf: true });
+        this.form.controls.email.setValue(response.data.email, { onlySelf: true });
+        this.form.controls.password.setValue(response.data.senha, { onlySelf: true });
+        this.form.controls.phone.setValue(response.data.telefone, { onlySelf: true });
+        this.form.controls.permission.setValue(response.data.permissao, { onlySelf: true });
       },
       (err: any) => {
         console.log(err);

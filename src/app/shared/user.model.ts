@@ -20,3 +20,8 @@ export interface UserResponse {
     criacao: string;
     alteracao: string;
 }
+
+export interface AuthResponse {
+    token: string;
+    usuario: UserResponse;
+}

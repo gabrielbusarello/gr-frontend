@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { UtilsService } from '../services/utils.service';
 import { DefaultResponse } from '../shared/app.model';
-import { UserResponse } from '../shared/user.model';
+import { UserResponse, AuthResponse } from '../shared/user.model';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -31,8 +31,10 @@ export class LoginComponent implements OnInit {
   public login() {
     this.blockSend = true;
     this.userService.authUser(this.form.controls.cpf.value, this.form.controls.pass.value).subscribe(
-      (response: DefaultResponse<UserResponse>) => {
-        localStorage.setItem('idUsuario', response.data.id.toString());
+      (response: DefaultResponse<AuthResponse>) => {
+        localStorage.setItem('token', 'Bearer ' + response.data.token);
+        localStorage.setItem('idUsuario', response.data.usuario.id.toString());
+        localStorage.setItem('nomeUsuario', response.data.usuario.nome);
         this.router.navigate(['/']);
       },
       (err: HttpErrorResponse) => {
