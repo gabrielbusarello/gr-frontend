@@ -9,7 +9,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="form-group col-12 col-sm-4" *ngIf="new">
+        <div class="form-group col-12 col-sm-4">
           <label for="cpf"><strong>*</strong> CPF</label>
           <input
             type="text"
@@ -22,7 +22,7 @@
           >
           <div class="invalid-feedback">CPF inválido</div>
         </div>
-        <div class="form-group col-12 col-sm-5">
+        <div class="form-group col-12 col-sm-5" [class.col-sm-5]="new" [class.col-sm-8]="!new">
           <label for="email"><strong>*</strong> E-mail</label>
           <input
           type="text"
@@ -46,7 +46,9 @@
           >
           <div class="invalid-feedback">Senha inválida</div>
         </div>
-        <div class="form-group" [class.col-12]="new" [class.col-7]="!new">
+      </div>
+      <div class="row">
+        <div class="form-group col-12">
           <label for="name"><strong>*</strong> Nome Completo</label>
           <input
             type="text"

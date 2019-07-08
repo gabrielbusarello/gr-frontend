@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,7 @@ export class HeaderComponent implements OnInit {
 
   @Output() public collapsedSidebar: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor() { }
+  constructor( private router: Router ) { }
 
   ngOnInit() {
   }
@@ -19,6 +20,14 @@ export class HeaderComponent implements OnInit {
    */
   public collapseSidebar(): void {
     this.collapsedSidebar.emit();
+  }
+
+  /**
+   * logout
+   */
+  public logout(): void {
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 
 }

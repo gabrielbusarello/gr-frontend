@@ -14,6 +14,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { AuthenticationGuard } from './services/authentication-guard.service';
+import { AuthenticationService } from './services/authentication.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,7 @@ import { SignupComponent } from './signup/signup.component';
     NgSelectModule,
     NgxMaskModule.forRoot()
   ],
-  providers: [ UtilsService ],
+  providers: [ UtilsService, AuthenticationService, AuthenticationGuard ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -28,25 +28,6 @@ export class UserService {
     }
 
     /**
-     * authUser
-     * @param username: string
-     * @param password: string
-     */
-    public authUser(username: string, password: string): Observable<any> {
-        const auth: { username: string, password: string } = {
-            username,
-            password
-        }
-        return this.http.post(
-            `${environment.urlApi}/authenticate`,
-            JSON.stringify(auth),
-            { headers: this.headers }
-        ).pipe(
-            map((response: HttpResponse<Observable<any>>) => response)
-        );
-    }
-
-    /**
      * getUserById
      * @param id: number
      */
@@ -84,6 +65,10 @@ export class UserService {
         }
     }
 
+    /**
+     * deleteUser
+     * @param id: number
+     */
     public deleteUser(id: number): Observable<any> {
         return this.http.delete(
             `${environment.urlApi}/usuario/${id}`,

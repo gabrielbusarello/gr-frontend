@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { take } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteComponent } from '../delete/delete.component';
 
 import { UserService } from '../../services/user.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 import { UserResponse } from 'src/app/shared/user.model';
 import { DefaultResponse } from 'src/app/shared/app.model';
@@ -23,17 +26,23 @@ export class UsersComponent implements OnInit {
     C: 'Cliente'
   };
 
-  constructor( private userService: UserService, private modalService: NgbModal ) { }
+  constructor( private userService: UserService, private modalService: NgbModal, private utils: UtilsService) { }
 
   ngOnInit() {
-    this.userService.getUsers().subscribe(
-      (response: DefaultResponse<Array<UserResponse>>) => {
-        this.users = response.data;
-      },
-      (err: any) => {
-        console.log(err);
-      }
-    );
+    this.getUsers();
+  }
+
+  private getUsers(): void {
+    this.userService.getUsers()
+      .pipe(take(1))
+      .subscribe(
+        (response: DefaultResponse<Array<UserResponse>>) => {
+          this.users = response.data;
+        },
+        (err: HttpErrorResponse) => {
+          this.utils.showToast(err.status, err.message);
+        }
+      );
   }
 
   /**
@@ -46,14 +55,16 @@ export class UsersComponent implements OnInit {
     modal.componentInstance.name = name;
     modal.result.then(resultado => {
       if (resultado.status) {
-        this.userService.deleteUser(id).subscribe(
-          (response: any) => {
-            console.log(response);
-          },
-          (err: any) => {
-            console.log(err);
-          }
-        );
+        this.userService.deleteUser(id)
+          .subscribe(
+            (response: DefaultResponse<UserResponse>) => {
+              this.utils.showToast(response.status, response.mensagem);
+              this.getUsers();
+            },
+            (err: any) => {
+              this.utils.showToast(err.status, err.message);
+            }
+          );
       }
     }, () => {});
   }
