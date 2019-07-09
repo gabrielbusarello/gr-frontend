@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/']);
         },
         (err: HttpErrorResponse) => {
-          this.utils.showToast(3, err.message);
+          this.utils.showToast(3, 'Usuário ou senha incorretos');
           this.blockSend = false;
         }
       );
