@@ -40,7 +40,7 @@ export class UsersComponent implements OnInit {
           this.users = response.data;
         },
         (err: HttpErrorResponse) => {
-          this.utils.showToast(err.status, err.message);
+          this.utils.showToast(err.error.status, err.error.message);
         }
       );
   }
@@ -61,8 +61,8 @@ export class UsersComponent implements OnInit {
               this.utils.showToast(response.status, response.mensagem);
               this.getUsers();
             },
-            (err: any) => {
-              this.utils.showToast(err.status, err.message);
+            (err: HttpErrorResponse) => {
+              this.utils.showToast(err.error.status, err.error.message);
             }
           );
       }

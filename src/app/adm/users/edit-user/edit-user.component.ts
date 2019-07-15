@@ -99,7 +99,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
         },
         (err: HttpErrorResponse) => {
           this.blockSend = false;
-          this.utils.showToast(err.status, err.message);
+          this.utils.showToast(err.error.status, err.error.message);
         }
       );
   }

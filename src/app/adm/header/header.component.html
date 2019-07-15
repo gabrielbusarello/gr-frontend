@@ -1,13 +1,14 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-primary">
   <a class="navbar-brand" routerLink="/">
-    <img src="../../../assets/logo.png" class="img-fluid" width="400" height="40" alt="Logo">
+    <img src="../../../assets/logo.png" class="img-fluid" alt="Logo">
   </a>
   <button class="navbar-toggler" type="button" (click)="collapseSidebar()">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse justify-content-end">
-    <span class="mr-4">Gabriel Dezan Busarello</span>
+    <canvas id="avatar" height="40" width="40"></canvas>
+    <span class="ml-2 mr-4">{{ name }}</span>
     <button class="btn btn-primary-less" type="button" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Sair</button>
   </div>
 </nav>
