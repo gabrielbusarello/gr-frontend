@@ -16,6 +16,8 @@ import { DeleteComponent } from './delete/delete.component';
 import { ToastrModule } from 'ngx-toastr';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxMaskModule } from 'ngx-mask';
+import { ExpensesComponent } from './expenses/expenses.component';
+import { EditExpensesComponent } from './expenses/edit-expenses/edit-expenses.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { NgxMaskModule } from 'ngx-mask';
     SidebarComponent,
     UsersComponent,
     EditUserComponent,
-    DeleteComponent
+    DeleteComponent,
+    ExpensesComponent,
+    EditExpensesComponent
   ],
   imports: [
     CommonModule,

@@ -7,6 +7,9 @@ import { HomeComponent } from './home/home.component';
 import { UsersComponent } from './users/users.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
 
+import { ExpensesComponent } from './expenses/expenses.component';
+import { EditExpensesComponent } from './expenses/edit-expenses/edit-expenses.component';
+
 const routes: Routes = [
   { path: '', component: AdmComponent, children:
     [
@@ -16,6 +19,13 @@ const routes: Routes = [
           { path: '', component: UsersComponent },
           { path: 'editar', component: EditUserComponent },
           { path: 'editar/:id', component: EditUserComponent }
+        ]
+      },
+      { path: 'despesas', children:
+        [
+          { path: '', component: ExpensesComponent },
+          { path: 'editar', component: EditExpensesComponent },
+          { path: 'editar/:id', component: EditExpensesComponent }
         ]
       }
     ]

@@ -47,6 +47,9 @@ export class AdmComponent implements OnInit, OnDestroy {
       case 'usuarios':
         this.page = 'Usuários';
         break;
+      case 'despesas':
+        this.page = 'Despesas';
+        break;
 
       default:
         this.page = undefined;
