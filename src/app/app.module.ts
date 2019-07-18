@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localePT from '@angular/common/locales/pt';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -16,6 +18,8 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { AuthenticationGuard } from './services/authentication-guard.service';
 import { AuthenticationService } from './services/authentication.service';
+
+registerLocaleData(localePT, 'pt');
 
 @NgModule({
   declarations: [
@@ -37,7 +41,12 @@ import { AuthenticationService } from './services/authentication.service';
     NgSelectModule,
     NgxMaskModule.forRoot()
   ],
-  providers: [ UtilsService, AuthenticationService, AuthenticationGuard ],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt' },
+    UtilsService,
+    AuthenticationService,
+    AuthenticationGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

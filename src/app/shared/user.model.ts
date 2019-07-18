@@ -14,7 +14,6 @@ export interface UserResponse {
     cpf: string;
     nome: string;
     email: string;
-    senha: string;
     telefone: string;
     permissao: string;
     criacao: string;

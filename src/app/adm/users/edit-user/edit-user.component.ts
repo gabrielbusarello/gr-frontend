@@ -66,7 +66,6 @@ export class EditUserComponent implements OnInit, OnDestroy {
           this.form.controls.cpf.setValue(response.data.cpf, { onlySelf: true });
           this.form.controls.name.setValue(response.data.nome, { onlySelf: true });
           this.form.controls.email.setValue(response.data.email, { onlySelf: true });
-          this.form.controls.password.setValue(response.data.senha, { onlySelf: true });
           this.form.controls.phone.setValue(response.data.telefone, { onlySelf: true });
           this.form.controls.permission.setValue(response.data.permissao, { onlySelf: true });
         },
