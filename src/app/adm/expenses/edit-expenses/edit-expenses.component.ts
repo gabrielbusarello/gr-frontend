@@ -8,6 +8,7 @@ import { ExpenseService } from 'src/app/services/expense.service';
 import Expense, { ExpenseResponse } from 'src/app/shared/expense.model';
 import { DefaultResponse } from 'src/app/shared/app.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DatePickerFormatter } from 'src/app/shared/date-picker-formatter.util';
 
 @Component({
   selector: 'app-edit-expenses',
@@ -34,7 +35,8 @@ export class EditExpensesComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private expenseService: ExpenseService,
     private router: Router,
-    private utils: UtilsService
+    private utils: UtilsService,
+    private datePickerFormatter: DatePickerFormatter
   ) { }
 
   ngOnInit() {
@@ -58,14 +60,14 @@ export class EditExpensesComponent implements OnInit, OnDestroy {
       .subscribe(
         (response: DefaultResponse<ExpenseResponse>) => {
           this.form.controls.id.setValue(response.data.id, { onlySelf: true });
-          this.form.controls.cpf.setValue(response.data.cpf, { onlySelf: true });
           this.form.controls.name.setValue(response.data.nome, { onlySelf: true });
-          this.form.controls.email.setValue(response.data.email, { onlySelf: true });
-          this.form.controls.phone.setValue(response.data.telefone, { onlySelf: true });
-          this.form.controls.permission.setValue(response.data.permissao, { onlySelf: true });
+          this.form.controls.description.setValue(response.data.descricao, { onlySelf: true });
+          this.form.controls.date.setValue(response.data.data, { onlySelf: true });
+          this.form.controls.hour.setValue(response.data.hora, { onlySelf: true });
+          this.form.controls.price.setValue(response.data.valor, { onlySelf: true });
         },
-        (err: any) => {
-          console.log(err);
+        (err: HttpErrorResponse) => {
+          this.utils.showToast(err.error.status, err.error.message);
         }
       );
   }
@@ -76,20 +78,20 @@ export class EditExpensesComponent implements OnInit, OnDestroy {
   public send(): void {
     this.blockSend = true;
     const expense: Expense = new Expense(
-      this.new ? this.form.controls.cpf.value : null,
       this.form.controls.name.value,
-      this.form.controls.email.value,
-      this.new ? this.form.controls.password.value : null,
-      this.form.controls.phone.value,
-      this.form.controls.permission.value
+      this.form.controls.description.value,
+      this.datePickerFormatter.formatToAPI(this.form.controls.date.value),
+      this.form.controls.hour.value,
+      this.form.controls.price.value
     );
+    console.log(expense); return;
 
     this.expenseService.sendExpense(expense, this.form.controls.id.value)
       .pipe(take(1))
       .subscribe(
         (response: DefaultResponse<ExpenseResponse>) => {
           this.utils.showToast(response.status, response.mensagem);
-          this.router.navigate(['/usuarios']);
+          this.router.navigate(['/despesas']);
         },
         (err: HttpErrorResponse) => {
           this.blockSend = false;

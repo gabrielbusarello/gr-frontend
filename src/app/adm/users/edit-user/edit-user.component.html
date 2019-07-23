@@ -3,7 +3,7 @@
     <div class="card-title">Novo Usuário</div>
     <form novalidate [formGroup]="form" (ngSubmit)="send()">
       <div class="row">
-        <div class="form-group col-12" *ngIf="espaco && !novo">
+        <div class="form-group col-12" *ngIf="form.get('id').value && !new">
           <label for="id">ID</label>
           <input type="text" class="form-control text-danger" id="id" aria-label="ID" formControlName="id">
         </div>
@@ -91,7 +91,7 @@
       </div>
       <div>
         <button type="button" class="btn btn-light" routerLink="/usuarios"><i class="fas fa-chevron-left"></i> Voltar</button>
-        <button type="submit" class="btn btn-primary" [disabled]="form.invalid || bloqueiaEnvio"><i class="fas fa-save"></i> Salvar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid || blockSend"><i class="fas fa-save"></i> Salvar</button>
       </div>
     </form>
   </div>

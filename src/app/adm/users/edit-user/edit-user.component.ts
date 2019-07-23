@@ -69,8 +69,8 @@ export class EditUserComponent implements OnInit, OnDestroy {
           this.form.controls.phone.setValue(response.data.telefone, { onlySelf: true });
           this.form.controls.permission.setValue(response.data.permissao, { onlySelf: true });
         },
-        (err: any) => {
-          console.log(err);
+        (err: HttpErrorResponse) => {
+          this.utils.showToast(err.error.status, err.error.message);
         }
       );
   }

@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { NgbDropdownModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbModalModule, NgbDatepickerModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { DatePickerFormatter } from '../shared/date-picker-formatter.util';
 
 import { AdmRoutingModule } from './adm-routing.module';
 import { HeaderComponent } from './header/header.component';
@@ -38,6 +39,7 @@ import { EditExpensesComponent } from './expenses/edit-expenses/edit-expenses.co
     NgbDropdownModule,
     ReactiveFormsModule,
     NgbModalModule,
+    NgbDatepickerModule,
     ToastrModule.forRoot({
       progressBar: true,
       progressAnimation: 'increasing',
@@ -49,6 +51,7 @@ import { EditExpensesComponent } from './expenses/edit-expenses/edit-expenses.co
   entryComponents: [ DeleteComponent ],
   exports: [
     DeleteComponent
-  ]
+  ],
+  providers: [{ provide: NgbDateParserFormatter, useClass: DatePickerFormatter }, DatePickerFormatter]
 })
 export class AdmModule { }
