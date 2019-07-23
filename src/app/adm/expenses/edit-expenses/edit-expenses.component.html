@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-body">
-    <div class="card-title">Novo Usuário</div>
+    <div class="card-title">Nova Despesa</div>
     <form novalidate [formGroup]="form" (ngSubmit)="send()">
       <div class="row">
         <div class="form-group col-12" *ngIf="form.get('id').value && !new">
@@ -46,8 +46,10 @@
             class="form-control"
             [class.is-valid]="form.get('hour').touched && form.get('hour').valid"
             [class.is-invalid]="form.get('hour').touched && form.get('hour').invalid"
-            id="hour" 
+            id="hour"
             formControlName="hour"
+            mask="00:00"
+            [dropSpecialCharacters]="false"
           >
           <div class="invalid-feedback">Hora inválida</div>
         </div>

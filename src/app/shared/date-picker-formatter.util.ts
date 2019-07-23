@@ -67,6 +67,19 @@ export class DatePickerFormatter extends NgbDateParserFormatter  {
     }
 
     /**
+     * parseFromAPI
+     * @param value: string
+     */
+    public parseFromAPI(value: string): NgbDateStruct {
+        if (value) {
+            const dateS: Array<string> = value.split('-');
+            const dateBR = dateS[2] + '/' + dateS[1] + '/' + dateS[0];
+            return this.parse(dateBR);
+        }
+        return null;
+    }
+
+    /**
      * format
      * @param date: NgbDateStruct
      */

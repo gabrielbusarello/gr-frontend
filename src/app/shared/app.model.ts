@@ -3,3 +3,6 @@ export interface DefaultResponse<T> {
     data: T;
     mensagem: string;
 }
+
+// '[0-9]*(,[0-9]{2})?'
+export const PRICE_REGEXP: RegExp = /^\d*(,\d{2})?$/;

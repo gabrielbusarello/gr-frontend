@@ -62,15 +62,21 @@ export class EditUserComponent implements OnInit, OnDestroy {
       .pipe(take(1))
       .subscribe(
         (response: DefaultResponse<UserResponse>) => {
-          this.form.controls.id.setValue(response.data.id, { onlySelf: true });
-          this.form.controls.cpf.setValue(response.data.cpf, { onlySelf: true });
-          this.form.controls.name.setValue(response.data.nome, { onlySelf: true });
-          this.form.controls.email.setValue(response.data.email, { onlySelf: true });
-          this.form.controls.phone.setValue(response.data.telefone, { onlySelf: true });
-          this.form.controls.permission.setValue(response.data.permissao, { onlySelf: true });
+          if (response.status === 1) {
+            this.form.controls.id.setValue(response.data.id, { onlySelf: true });
+            this.form.controls.cpf.setValue(response.data.cpf, { onlySelf: true });
+            this.form.controls.name.setValue(response.data.nome, { onlySelf: true });
+            this.form.controls.email.setValue(response.data.email, { onlySelf: true });
+            this.form.controls.phone.setValue(response.data.telefone, { onlySelf: true });
+            this.form.controls.permission.setValue(response.data.permissao, { onlySelf: true });
+          } else {
+            this.utils.showToast(response.status, response.mensagem);
+            this.router.navigate(['/usuarios']);
+          }
         },
         (err: HttpErrorResponse) => {
-          this.utils.showToast(err.error.status, err.error.message);
+          this.utils.showToast(err.error.status, err.error.mensagem);
+          this.router.navigate(['/usuarios']);
         }
       );
   }
@@ -98,7 +104,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
         },
         (err: HttpErrorResponse) => {
           this.blockSend = false;
-          this.utils.showToast(err.error.status, err.error.message);
+          this.utils.showToast(err.error.status, err.error.mensagem);
         }
       );
   }

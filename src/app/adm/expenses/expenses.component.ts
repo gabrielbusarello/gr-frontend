@@ -32,9 +32,14 @@ export class ExpensesComponent implements OnInit {
       .subscribe(
         (response: DefaultResponse<Array<ExpenseResponse>>) => {
           this.expenses = response.data;
+
+          if (response.status !== 1) {
+            this.utils.showToast(response.status, response.mensagem);
+            this.expenses = [];
+          }
         },
         (err: HttpErrorResponse) => {
-          this.utils.showToast(err.error.status, err.error.message);
+          this.utils.showToast(err.error.status, err.error.mensagem);
         }
       );
   }
@@ -56,7 +61,7 @@ export class ExpensesComponent implements OnInit {
               this.getExpenses();
             },
             (err: HttpErrorResponse) => {
-              this.utils.showToast(err.error.status, err.error.message);
+              this.utils.showToast(err.error.status, err.error.mensagem);
             }
           );
       }
