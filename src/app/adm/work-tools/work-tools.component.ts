@@ -4,38 +4,38 @@ import { take } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteComponent } from '../delete/delete.component';
 
-import { ExpenseService } from '../../services/expense.service';
+import { WorkToolService } from '../../services/work-tools.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
-import { ExpenseResponse } from 'src/app/shared/expense.model';
+import { WorkToolResponse } from 'src/app/shared/work-tool.model';
 import { DefaultResponse } from 'src/app/shared/app.model';
 
 @Component({
-  selector: 'app-expenses',
-  templateUrl: './expenses.component.html',
-  styleUrls: ['./expenses.component.sass'],
-  providers: [ ExpenseService ]
+  selector: 'app-work-tools',
+  templateUrl: './work-tools.component.html',
+  styleUrls: ['./work-tools.component.sass'],
+  providers: [ WorkToolService ]
 })
-export class ExpensesComponent implements OnInit {
+export class WorkToolsComponent implements OnInit {
 
-  public expenses: Array<ExpenseResponse>;
+  public workTools: Array<WorkToolResponse>;
 
-  constructor( private expenseService: ExpenseService, private modalService: NgbModal, private utils: UtilsService ) { }
+  constructor( private workToolService: WorkToolService, private modalService: NgbModal, private utils: UtilsService ) { }
 
   ngOnInit() {
-    this.getExpenses();
+    this.getWorkTools();
   }
 
-  private getExpenses(): void {
-    this.expenseService.getExpenses()
+  private getWorkTools(): void {
+    this.workToolService.getWorkTools()
       .pipe(take(1))
       .subscribe(
-        (response: DefaultResponse<Array<ExpenseResponse>>) => {
-          this.expenses = response.data;
+        (response: DefaultResponse<Array<WorkToolResponse>>) => {
+          this.workTools = response.data;
 
           if (response.status !== 1) {
             this.utils.showToast(response.status, response.mensagem);
-            this.expenses = [];
+            this.workTools = [];
           }
         },
         (err: HttpErrorResponse) => {
@@ -54,11 +54,11 @@ export class ExpensesComponent implements OnInit {
     modal.componentInstance.name = name;
     modal.result.then(resultado => {
       if (resultado.status) {
-        this.expenseService.deleteExpense(id)
+        this.workToolService.deleteWorkTool(id)
           .subscribe(
-            (response: DefaultResponse<ExpenseResponse>) => {
+            (response: DefaultResponse<WorkToolResponse>) => {
               this.utils.showToast(response.status, response.mensagem);
-              this.getExpenses();
+              this.getWorkTools();
             },
             (err: HttpErrorResponse) => {
               this.utils.showToast(err.error.status, err.error.mensagem || err.message);

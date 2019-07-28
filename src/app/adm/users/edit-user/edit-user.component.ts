@@ -75,7 +75,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
           }
         },
         (err: HttpErrorResponse) => {
-          this.utils.showToast(err.error.status, err.error.mensagem);
+          this.utils.showToast(err.error.status, err.error.mensagem || err.message);
           this.router.navigate(['/usuarios']);
         }
       );
@@ -104,7 +104,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
         },
         (err: HttpErrorResponse) => {
           this.blockSend = false;
-          this.utils.showToast(err.error.status, err.error.mensagem);
+          this.utils.showToast(err.error.status, err.error.mensagem || err.message);
         }
       );
   }

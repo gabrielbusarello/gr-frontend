@@ -10,6 +10,9 @@ import { EditUserComponent } from './users/edit-user/edit-user.component';
 import { ExpensesComponent } from './expenses/expenses.component';
 import { EditExpensesComponent } from './expenses/edit-expenses/edit-expenses.component';
 
+import { WorkToolsComponent } from './work-tools/work-tools.component';
+import { EditWtComponent } from './work-tools/edit-wt/edit-wt.component';
+
 const routes: Routes = [
   { path: '', component: AdmComponent, children:
     [
@@ -26,6 +29,13 @@ const routes: Routes = [
           { path: '', component: ExpensesComponent },
           { path: 'editar', component: EditExpensesComponent },
           { path: 'editar/:id', component: EditExpensesComponent }
+        ]
+      },
+      { path: 'ferramentas', children:
+        [
+          { path: '', component: WorkToolsComponent },
+          { path: 'editar', component: EditWtComponent },
+          { path: 'editar/:id', component: EditWtComponent }
         ]
       }
     ]

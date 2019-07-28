@@ -20,7 +20,7 @@
           <tr *ngFor="let expense of expenses">
             <th scope="row">{{ expense.id }}</th>
             <td>{{ expense.nome }}</td>
-            <td>{{ expense.data | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ expense.data.split('T')[0] | date: 'shortDate' }}</td>
             <td>{{ expense.valor | currency: 'BRL' }}</td>
             <td><button type="button" class="btn btn-success" [routerLink]="['editar', expense.id]"><i class="fas fa-edit"></i></button></td>
             <td><button type="button" class="btn btn-danger" (click)="delete(expense.id, expense.nome)"><i class="fas fa-trash"></i></button></td>

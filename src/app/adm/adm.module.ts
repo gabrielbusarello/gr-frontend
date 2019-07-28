@@ -19,6 +19,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxMaskModule } from 'ngx-mask';
 import { ExpensesComponent } from './expenses/expenses.component';
 import { EditExpensesComponent } from './expenses/edit-expenses/edit-expenses.component';
+import { WorkToolsComponent } from './work-tools/work-tools.component';
+import { EditWtComponent } from './work-tools/edit-wt/edit-wt.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { EditExpensesComponent } from './expenses/edit-expenses/edit-expenses.co
     EditUserComponent,
     DeleteComponent,
     ExpensesComponent,
-    EditExpensesComponent
+    EditExpensesComponent,
+    WorkToolsComponent,
+    EditWtComponent
   ],
   imports: [
     CommonModule,

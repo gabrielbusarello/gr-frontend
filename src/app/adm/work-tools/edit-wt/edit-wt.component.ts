@@ -4,27 +4,25 @@ import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UtilsService } from 'src/app/services/utils.service';
-import { ExpenseService } from 'src/app/services/expense.service';
-import Expense, { ExpenseResponse } from 'src/app/shared/expense.model';
-import { DefaultResponse, PRICE_REGEXP } from 'src/app/shared/app.model';
+import { WorkToolService } from 'src/app/services/work-tools.service';
+import WorkTool, { WorkToolResponse } from 'src/app/shared/work-tool.model';
+import { DefaultResponse } from 'src/app/shared/app.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DatePickerFormatter } from 'src/app/shared/date-picker-formatter.util';
 
 @Component({
-  selector: 'app-edit-expenses',
-  templateUrl: './edit-expenses.component.html',
-  styleUrls: ['./edit-expenses.component.sass'],
-  providers: [ ExpenseService ]
+  selector: 'app-edit-wt',
+  templateUrl: './edit-wt.component.html',
+  styleUrls: ['./edit-wt.component.sass'],
+  providers: [ WorkToolService ]
 })
-export class EditExpensesComponent implements OnInit, OnDestroy {
+export class EditWtComponent implements OnInit, OnDestroy {
 
   public form: FormGroup = new FormGroup({
     id:           new FormControl({ value: null, disabled: true }),
     name:         new FormControl(null, [ Validators.required, Validators.maxLength(100) ]),
-    description:  new FormControl(null, [ Validators.maxLength(1000) ]),
-    date:         new FormControl(null, [ Validators.required, Validators.maxLength(10) ]),
-    hour:         new FormControl(null, [ Validators.maxLength(8) ]),
-    price:        new FormControl(null, [ Validators.required, Validators.maxLength(10), Validators.pattern(PRICE_REGEXP) ])
+    dtLastRepair: new FormControl(null, [ Validators.required, Validators.maxLength(10) ]),
+    nextRepair:   new FormControl(null, [ Validators.required, Validators.maxLength(5) ]),
   });
 
   private subRoute: Subscription;
@@ -33,7 +31,7 @@ export class EditExpensesComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private expenseService: ExpenseService,
+    private workToolService: WorkToolService,
     private router: Router,
     private utils: UtilsService,
     private datePickerFormatter: DatePickerFormatter
@@ -43,7 +41,7 @@ export class EditExpensesComponent implements OnInit, OnDestroy {
     this.subRoute = this.route.params.subscribe((param: Params) => {
       if (param.id) {
         this.new = false;
-        this.getExpenseById(param.id);
+        this.getWorkToolById(param.id);
       } else {
         this.new = true;
       }
@@ -54,26 +52,27 @@ export class EditExpensesComponent implements OnInit, OnDestroy {
     this.subRoute.unsubscribe();
   }
 
-  private getExpenseById(id: number): void {
-    this.expenseService.getExpenseById(id)
+  private getWorkToolById(id: number): void {
+    this.workToolService.getWorkToolById(id)
       .pipe(take(1))
       .subscribe(
-        (response: DefaultResponse<ExpenseResponse>) => {
+        (response: DefaultResponse<WorkToolResponse>) => {
           if (response.status === 1) {
             this.form.controls.id.setValue(response.data.id, { onlySelf: true });
             this.form.controls.name.setValue(response.data.nome, { onlySelf: true });
-            this.form.controls.description.setValue(response.data.descricao, { onlySelf: true });
-            this.form.controls.date.setValue(this.datePickerFormatter.parseFromAPI(response.data.data.split('T')[0]), { onlySelf: true });
-            this.form.controls.hour.setValue(response.data.hora, { onlySelf: true });
-            this.form.controls.price.setValue(response.data.valor.toString().replace('.', ','), { onlySelf: true });
+            this.form.controls.dtLastRepair.setValue(
+              this.datePickerFormatter.parseFromAPI(response.data.dtUltimoReparo.split('T')[0]),
+              { onlySelf: true }
+            );
+            this.form.controls.nextRepair.setValue(response.data.proximoReparo, { onlySelf: true });
           } else {
             this.utils.showToast(response.status, response.mensagem);
-            this.router.navigate(['/despesas']);
+            this.router.navigate(['/ferramentas']);
           }
         },
         (err: HttpErrorResponse) => {
           this.utils.showToast(err.error.status, err.error.mensagem || err.message);
-          this.router.navigate(['/despesas']);
+          this.router.navigate(['/ferramentas']);
         }
       );
   }
@@ -83,20 +82,18 @@ export class EditExpensesComponent implements OnInit, OnDestroy {
    */
   public send(): void {
     this.blockSend = true;
-    const expense: Expense = new Expense(
+    const workTool: WorkTool = new WorkTool(
       this.form.controls.name.value,
-      this.form.controls.description.value,
-      this.datePickerFormatter.formatToAPI(this.form.controls.date.value),
-      this.form.controls.hour.value,
-      this.form.controls.price.value.replace(',', '.')
+      this.datePickerFormatter.formatToAPI(this.form.controls.dtLastRepair.value),
+      this.form.controls.nextRepair.value,
     );
 
-    this.expenseService.sendExpense(expense, this.form.controls.id.value)
+    this.workToolService.sendWorkTool(workTool, this.form.controls.id.value)
       .pipe(take(1))
       .subscribe(
-        (response: DefaultResponse<ExpenseResponse>) => {
+        (response: DefaultResponse<WorkToolResponse>) => {
           this.utils.showToast(response.status, response.mensagem);
-          this.router.navigate(['/despesas']);
+          this.router.navigate(['/ferramentas']);
         },
         (err: HttpErrorResponse) => {
           this.blockSend = false;
