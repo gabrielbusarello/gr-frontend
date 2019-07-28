@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class UtilsService {
 
-    constructor( private toastr: ToastrService ) { }
+    constructor( private toastr: ToastrService, private router: Router ) { }
 
     /**
      * showToast - Método para disparar os toasts na tela.
@@ -22,6 +23,13 @@ export class UtilsService {
                 break;
             case 3:
                 this.toastr.error(message, `Erro`);
+                break;
+            case 400:
+            case 401:
+            case 403:
+                this.toastr.error(message, `Erro`);
+                localStorage.clear();
+                this.router.navigate(['/login']);
                 break;
             default:
                 this.toastr.warning(message, `Atenção`);

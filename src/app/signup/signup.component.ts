@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { take } from 'rxjs/operators';
 
+import { AuthenticationService } from '../services/authentication.service';
 import User, { UserResponse } from '../shared/user.model';
-import { UserService } from '../services/user.service';
 import { UtilsService } from '../services/utils.service';
 import { DefaultResponse } from '../shared/app.model';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.sass'],
-  providers: [ UserService ]
+  styleUrls: ['./signup.component.sass']
 })
 export class SignupComponent implements OnInit {
 
@@ -32,9 +32,12 @@ export class SignupComponent implements OnInit {
 
   public blockSend: boolean;
 
-  constructor( private userService: UserService, private router: Router, private utils: UtilsService ) { }
+  constructor( private authenticationService: AuthenticationService, private router: Router, private utils: UtilsService ) { }
 
   ngOnInit() {
+    if (this.authenticationService.isAuthenticated()) {
+      this.router.navigate(['/']);
+    }
   }
 
   public signup(): void {
@@ -48,16 +51,18 @@ export class SignupComponent implements OnInit {
       this.form.controls.permission.value
     );
 
-    this.userService.sendUser(user).subscribe(
-      (response: DefaultResponse<UserResponse>) => {
-        this.utils.showToast(response.status, response.mensagem);
-        this.router.navigate(['/login']);
-      },
-      (err: HttpErrorResponse) => {
-        this.utils.showToast(3, err.message);
-        this.blockSend = false;
-      }
-    );
+    this.authenticationService.registerUser(user)
+      .pipe(take(1))
+      .subscribe(
+        (response: DefaultResponse<UserResponse>) => {
+          this.utils.showToast(response.status, response.mensagem);
+          this.router.navigate(['/login']);
+        },
+        (err: HttpErrorResponse) => {
+          this.utils.showToast(3, err.message);
+          this.blockSend = false;
+        }
+      );
   }
 
 }

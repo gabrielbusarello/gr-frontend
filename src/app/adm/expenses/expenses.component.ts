@@ -4,44 +4,38 @@ import { take } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteComponent } from '../delete/delete.component';
 
-import { UserService } from '../../services/user.service';
+import { ExpenseService } from '../../services/expense.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
-import { UserResponse } from 'src/app/shared/user.model';
+import { ExpenseResponse } from 'src/app/shared/expense.model';
 import { DefaultResponse } from 'src/app/shared/app.model';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.sass'],
-  providers: [ UserService ]
+  selector: 'app-expenses',
+  templateUrl: './expenses.component.html',
+  styleUrls: ['./expenses.component.sass'],
+  providers: [ ExpenseService ]
 })
-export class UsersComponent implements OnInit {
+export class ExpensesComponent implements OnInit {
 
-  public users: Array<UserResponse>;
+  public expenses: Array<ExpenseResponse>;
 
-  public namePermission = {
-    I: 'Interno',
-    P: 'Prestador',
-    C: 'Cliente'
-  };
-
-  constructor( private userService: UserService, private modalService: NgbModal, private utils: UtilsService) { }
+  constructor( private expenseService: ExpenseService, private modalService: NgbModal, private utils: UtilsService) { }
 
   ngOnInit() {
-    this.getUsers();
+    this.getExpenses();
   }
 
-  private getUsers(): void {
-    this.userService.getUsers()
+  private getExpenses(): void {
+    this.expenseService.getExpenses()
       .pipe(take(1))
       .subscribe(
-        (response: DefaultResponse<Array<UserResponse>>) => {
-          this.users = response.data;
+        (response: DefaultResponse<Array<ExpenseResponse>>) => {
+          this.expenses = response.data;
 
           if (response.status !== 1) {
             this.utils.showToast(response.status, response.mensagem);
-            this.users = [];
+            this.expenses = [];
           }
         },
         (err: HttpErrorResponse) => {
@@ -60,11 +54,11 @@ export class UsersComponent implements OnInit {
     modal.componentInstance.name = name;
     modal.result.then(resultado => {
       if (resultado.status) {
-        this.userService.deleteUser(id)
+        this.expenseService.deleteExpense(id)
           .subscribe(
-            (response: DefaultResponse<UserResponse>) => {
+            (response: DefaultResponse<ExpenseResponse>) => {
               this.utils.showToast(response.status, response.mensagem);
-              this.getUsers();
+              this.getExpenses();
             },
             (err: HttpErrorResponse) => {
               this.utils.showToast(err.error.status, err.error.mensagem);

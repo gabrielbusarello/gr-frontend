@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { NgbDropdownModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbModalModule, NgbDatepickerModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { DatePickerFormatter } from '../shared/date-picker-formatter.util';
 
 import { AdmRoutingModule } from './adm-routing.module';
 import { HeaderComponent } from './header/header.component';
@@ -16,6 +17,8 @@ import { DeleteComponent } from './delete/delete.component';
 import { ToastrModule } from 'ngx-toastr';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxMaskModule } from 'ngx-mask';
+import { ExpensesComponent } from './expenses/expenses.component';
+import { EditExpensesComponent } from './expenses/edit-expenses/edit-expenses.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,9 @@ import { NgxMaskModule } from 'ngx-mask';
     SidebarComponent,
     UsersComponent,
     EditUserComponent,
-    DeleteComponent
+    DeleteComponent,
+    ExpensesComponent,
+    EditExpensesComponent
   ],
   imports: [
     CommonModule,
@@ -34,6 +39,7 @@ import { NgxMaskModule } from 'ngx-mask';
     NgbDropdownModule,
     ReactiveFormsModule,
     NgbModalModule,
+    NgbDatepickerModule,
     ToastrModule.forRoot({
       progressBar: true,
       progressAnimation: 'increasing',
@@ -45,6 +51,7 @@ import { NgxMaskModule } from 'ngx-mask';
   entryComponents: [ DeleteComponent ],
   exports: [
     DeleteComponent
-  ]
+  ],
+  providers: [{ provide: NgbDateParserFormatter, useClass: DatePickerFormatter }, DatePickerFormatter]
 })
 export class AdmModule { }

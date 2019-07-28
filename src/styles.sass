@@ -50,6 +50,10 @@ $theme-colors: ("primary": #dcd2aa, "danger": #c2282d, "primary-less": #f8f5ed)
         border-right: none
         text-decoration: none
 
+.navbar-brand
+    .img-fluid
+        width: 400px
+
 .overlay
     display: none
     position: fixed
@@ -74,12 +78,17 @@ $theme-colors: ("primary": #dcd2aa, "danger": #c2282d, "primary-less": #f8f5ed)
         overflow: auto
 
     .sidebar.active
+        margin-top: 55px
         margin-left: 0
         position: absolute
 
     .overlay.active
         display: block
         opacity: 1
+
+    .navbar-brand
+        .img-fluid
+            width: 200px
 
 .ng-select
     &.ng-touched

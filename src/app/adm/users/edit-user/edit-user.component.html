@@ -3,13 +3,13 @@
     <div class="card-title">Novo Usuário</div>
     <form novalidate [formGroup]="form" (ngSubmit)="send()">
       <div class="row">
-        <div class="form-group col-12" *ngIf="espaco && !novo">
+        <div class="form-group col-12" *ngIf="form.get('id').value && !new">
           <label for="id">ID</label>
           <input type="text" class="form-control text-danger" id="id" aria-label="ID" formControlName="id">
         </div>
       </div>
       <div class="row">
-        <div class="form-group col-12 col-sm-4" *ngIf="new">
+        <div class="form-group col-12 col-sm-4">
           <label for="cpf"><strong>*</strong> CPF</label>
           <input
             type="text"
@@ -22,7 +22,7 @@
           >
           <div class="invalid-feedback">CPF inválido</div>
         </div>
-        <div class="form-group col-12 col-sm-5">
+        <div class="form-group col-12 col-sm-5" [class.col-sm-5]="new" [class.col-sm-8]="!new">
           <label for="email"><strong>*</strong> E-mail</label>
           <input
           type="text"
@@ -46,7 +46,9 @@
           >
           <div class="invalid-feedback">Senha inválida</div>
         </div>
-        <div class="form-group" [class.col-12]="new" [class.col-7]="!new">
+      </div>
+      <div class="row">
+        <div class="form-group col-12">
           <label for="name"><strong>*</strong> Nome Completo</label>
           <input
             type="text"
@@ -89,7 +91,7 @@
       </div>
       <div>
         <button type="button" class="btn btn-light" routerLink="/usuarios"><i class="fas fa-chevron-left"></i> Voltar</button>
-        <button type="submit" class="btn btn-primary" [disabled]="form.invalid || bloqueiaEnvio"><i class="fas fa-save"></i> Salvar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid || blockSend"><i class="fas fa-save"></i> Salvar</button>
       </div>
     </form>
   </div>

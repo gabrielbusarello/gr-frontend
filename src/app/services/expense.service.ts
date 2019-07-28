@@ -4,10 +4,10 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import User from '../shared/user.model';
+import Expense from '../shared/expense.model';
 
 @Injectable()
-export class UserService {
+export class ExpenseService {
     constructor( private http: HttpClient ) { }
 
     private headers: HttpHeaders = new HttpHeaders()
@@ -16,11 +16,11 @@ export class UserService {
         .append('Authorization', localStorage.getItem('token'));
 
     /**
-     * getUsers
+     * getExpenses
      */
-    public getUsers(): Observable<any> {
+    public getExpenses(): Observable<any> {
         return this.http.get(
-            `${environment.urlApi}/usuario`,
+            `${environment.urlApi}/despesa`,
             { headers: this.headers }
         ).pipe(
             map((response: HttpResponse<Observable<any>>) => response)
@@ -28,12 +28,12 @@ export class UserService {
     }
 
     /**
-     * getUserById
+     * getExpenseById
      * @param id: number
      */
-    public getUserById(id: number): Observable<any> {
+    public getExpenseById(id: number): Observable<any> {
         return this.http.get(
-            `${environment.urlApi}/usuario/${id}`,
+            `${environment.urlApi}/despesa/${id}`,
             { headers: this.headers }
         ).pipe(
             map((response: HttpResponse<Observable<any>>) => response)
@@ -41,23 +41,23 @@ export class UserService {
     }
 
     /**
-     * sendUser
-     * @param user: User
+     * sendExpense
+     * @param expense: Expense
      * @param id?: number
      */
-    public sendUser(user: User, id?: number): Observable<any> {
+    public sendExpense(expense: Expense, id?: number): Observable<any> {
         if (id) {
             return this.http.put(
-                `${environment.urlApi}/usuario/${id}`,
-                JSON.stringify(user),
+                `${environment.urlApi}/despesa/${id}`,
+                JSON.stringify(expense),
                 { headers: this.headers }
             ).pipe(
                 map((response: HttpResponse<Observable<any>>) => response)
             );
         } else {
             return this.http.post(
-                `${environment.urlApi}/register`,
-                JSON.stringify(user),
+                `${environment.urlApi}/despesa`,
+                JSON.stringify(expense),
                 { headers: this.headers }
             ).pipe(
                 map((response: HttpResponse<Observable<any>>) => response)
@@ -66,12 +66,12 @@ export class UserService {
     }
 
     /**
-     * deleteUser
+     * deleteExpense
      * @param id: number
      */
-    public deleteUser(id: number): Observable<any> {
+    public deleteExpense(id: number): Observable<any> {
         return this.http.delete(
-            `${environment.urlApi}/usuario/${id}`,
+            `${environment.urlApi}/despesa/${id}`,
             { headers: this.headers }
         ).pipe(
             map((response: HttpResponse<Observable<any>>) => response)
