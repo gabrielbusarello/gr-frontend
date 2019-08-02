@@ -37,7 +37,7 @@ import { EditServiceTypeComponent } from './service-type/edit-service-type/edit-
     ExpensesComponent,
     EditExpensesComponent,
     WorkToolsComponent,
-    EditWtComponent
+    EditWtComponent,
     ServiceTypeComponent,
     EditServiceTypeComponent
   ],
