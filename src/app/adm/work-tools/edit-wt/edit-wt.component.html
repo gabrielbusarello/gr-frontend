@@ -1,0 +1,61 @@
+<div class="card">
+    <div class="card-body">
+      <div class="card-title">Nova Ferramenta</div>
+      <form novalidate [formGroup]="form" (ngSubmit)="send()">
+        <div class="row">
+          <div class="form-group col-12" *ngIf="form.get('id').value && !new">
+            <label for="id">ID</label>
+            <input type="text" class="form-control text-danger" id="id" aria-label="ID" formControlName="id">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-12 col-sm-6">
+            <label for="name"><strong>*</strong> Nome</label>
+            <input
+              type="text"
+              class="form-control"
+              [class.is-valid]="form.get('name').touched && form.get('name').valid"
+              [class.is-invalid]="form.get('name').touched && form.get('name').invalid"
+              id="name" 
+              formControlName="name"
+            >
+            <div class="invalid-feedback">Nome inválido</div>
+          </div>
+          <div class="form-group col-12 col-sm-3">
+            <label for="dtLastRepair"><strong>*</strong> Data do Último Reparo</label>
+            <div class="input-group">
+              <input
+                class="form-control"
+                ngbDatepicker
+                #dtLastRepair="ngbDatepicker"
+                [class.is-valid]="form.get('dtLastRepair').touched && form.get('dtLastRepair').valid"
+                [class.is-invalid]="form.get('dtLastRepair').touched && form.get('dtLastRepair').invalid"
+                id="dtLastRepair"
+                formControlName="dtLastRepair"
+              >
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" (click)="dtLastRepair.toggle()" type="button"><i class="fas fa-calendar-alt"></i></button>
+              </div>
+            </div>
+            <div class="invalid-feedback">Data do Último Reparo inválida</div>
+          </div>
+          <div class="form-group col-12 col-sm-3">
+            <label for="nextRepair"><strong>*</strong> Próximo Reparo (dias)</label>
+            <input
+              type="text"
+              class="form-control"
+              [class.is-valid]="form.get('nextRepair').touched && form.get('nextRepair').valid"
+              [class.is-invalid]="form.get('nextRepair').touched && form.get('nextRepair').invalid"
+              id="nextRepair" 
+              formControlName="nextRepair"
+            >
+            <div class="invalid-feedback">Próximo Reparo (dias) inválido</div>
+          </div>
+        </div>
+        <div>
+          <button type="button" class="btn btn-light" routerLink="/ferramentas"><i class="fas fa-chevron-left"></i> Voltar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="form.invalid || blockSend"><i class="fas fa-save"></i> Salvar</button>
+        </div>
+      </form>
+    </div>
+</div>

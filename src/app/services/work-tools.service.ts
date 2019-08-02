@@ -4,10 +4,10 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import User from '../shared/user.model';
+import WorkTool from '../shared/work-tool.model';
 
 @Injectable()
-export class UserService {
+export class WorkToolService {
     constructor( private http: HttpClient ) { }
 
     private headers: HttpHeaders = new HttpHeaders()
@@ -16,11 +16,11 @@ export class UserService {
         .append('Authorization', localStorage.getItem('token'));
 
     /**
-     * getUsers
+     * getWorkTools
      */
-    public getUsers(): Observable<any> {
+    public getWorkTools(): Observable<any> {
         return this.http.get(
-            `${environment.urlApi}/usuario`,
+            `${environment.urlApi}/ferramenta`,
             { headers: this.headers }
         ).pipe(
             map((response: HttpResponse<Observable<any>>) => response)
@@ -28,12 +28,12 @@ export class UserService {
     }
 
     /**
-     * getUserById
+     * getWorkToolById
      * @param id: number
      */
-    public getUserById(id: number): Observable<any> {
+    public getWorkToolById(id: number): Observable<any> {
         return this.http.get(
-            `${environment.urlApi}/usuario/${id}`,
+            `${environment.urlApi}/ferramenta/${id}`,
             { headers: this.headers }
         ).pipe(
             map((response: HttpResponse<Observable<any>>) => response)
@@ -41,23 +41,23 @@ export class UserService {
     }
 
     /**
-     * sendUser
-     * @param user: User
+     * sendWorkTool
+     * @param workTool: WorkTool
      * @param id?: number
      */
-    public sendUser(user: User, id?: number): Observable<any> {
+    public sendWorkTool(workTool: WorkTool, id?: number): Observable<any> {
         if (id) {
             return this.http.put(
-                `${environment.urlApi}/usuario/${id}`,
-                JSON.stringify(user),
+                `${environment.urlApi}/ferramenta/${id}`,
+                JSON.stringify(workTool),
                 { headers: this.headers }
             ).pipe(
                 map((response: HttpResponse<Observable<any>>) => response)
             );
         } else {
             return this.http.post(
-                `${environment.urlApi}/register`,
-                JSON.stringify(user),
+                `${environment.urlApi}/ferramenta`,
+                JSON.stringify(workTool),
                 { headers: this.headers }
             ).pipe(
                 map((response: HttpResponse<Observable<any>>) => response)
@@ -66,12 +66,12 @@ export class UserService {
     }
 
     /**
-     * deleteUser
+     * deleteWorkTool
      * @param id: number
      */
-    public deleteUser(id: number): Observable<any> {
+    public deleteWorkTool(id: number): Observable<any> {
         return this.http.delete(
-            `${environment.urlApi}/usuario/${id}`,
+            `${environment.urlApi}/ferramenta/${id}`,
             { headers: this.headers }
         ).pipe(
             map((response: HttpResponse<Observable<any>>) => response)

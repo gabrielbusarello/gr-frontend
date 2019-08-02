@@ -4,44 +4,38 @@ import { take } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteComponent } from '../delete/delete.component';
 
-import { UserService } from '../../services/user.service';
+import { WorkToolService } from '../../services/work-tools.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
-import { UserResponse } from 'src/app/shared/user.model';
+import { WorkToolResponse } from 'src/app/shared/work-tool.model';
 import { DefaultResponse } from 'src/app/shared/app.model';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.sass'],
-  providers: [ UserService ]
+  selector: 'app-work-tools',
+  templateUrl: './work-tools.component.html',
+  styleUrls: ['./work-tools.component.sass'],
+  providers: [ WorkToolService ]
 })
-export class UsersComponent implements OnInit {
+export class WorkToolsComponent implements OnInit {
 
-  public users: Array<UserResponse>;
+  public workTools: Array<WorkToolResponse>;
 
-  public namePermission = {
-    I: 'Interno',
-    P: 'Prestador',
-    C: 'Cliente'
-  };
-
-  constructor( private userService: UserService, private modalService: NgbModal, private utils: UtilsService) { }
+  constructor( private workToolService: WorkToolService, private modalService: NgbModal, private utils: UtilsService ) { }
 
   ngOnInit() {
-    this.getUsers();
+    this.getWorkTools();
   }
 
-  private getUsers(): void {
-    this.userService.getUsers()
+  private getWorkTools(): void {
+    this.workToolService.getWorkTools()
       .pipe(take(1))
       .subscribe(
-        (response: DefaultResponse<Array<UserResponse>>) => {
-          this.users = response.data;
+        (response: DefaultResponse<Array<WorkToolResponse>>) => {
+          this.workTools = response.data;
 
           if (response.status !== 1) {
             this.utils.showToast(response.status, response.mensagem);
-            this.users = [];
+            this.workTools = [];
           }
         },
         (err: HttpErrorResponse) => {
@@ -60,11 +54,11 @@ export class UsersComponent implements OnInit {
     modal.componentInstance.name = name;
     modal.result.then(resultado => {
       if (resultado.status) {
-        this.userService.deleteUser(id)
+        this.workToolService.deleteWorkTool(id)
           .subscribe(
-            (response: DefaultResponse<UserResponse>) => {
+            (response: DefaultResponse<WorkToolResponse>) => {
               this.utils.showToast(response.status, response.mensagem);
-              this.getUsers();
+              this.getWorkTools();
             },
             (err: HttpErrorResponse) => {
               this.utils.showToast(err.error.status, err.error.mensagem || err.message);

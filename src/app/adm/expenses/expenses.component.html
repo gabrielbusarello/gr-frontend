@@ -1,41 +1,39 @@
 <div class="card">
   <div class="card-body">
     <div class="card-title d-flex justify-content-between mb-3">
-      <span>Usuários</span>
+      <span>Despesas</span>
       <button type="button" class="btn btn-primary" routerLink="editar"><i class="fas fa-plus-circle mr-1"></i> <span class="d-none d-sm-inline-block">Adicionar</span></button>
     </div>
-    <div class="table-responsive" *ngIf="users">
+    <div class="table-responsive" *ngIf="expenses">
       <table class="table">
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">CPF</th>
-            <th scope="col">Email</th>
             <th scope="col">Nome</th>
-            <th scope="col">Permissão</th>
+            <th scope="col">Data</th>
+            <th scope="col">Valor</th>
             <th></th>
             <th></th>
           </tr>
         </thead>
-        <tbody *ngIf="users.length > 0; else noRegisters">
-          <tr *ngFor="let user of users">
-            <th scope="row">{{ user.id }}</th>
-            <td>{{ user.cpf }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.nome }}</td>
-            <td>{{ namePermission[user.permissao] }}</td>
-            <td><button type="button" class="btn btn-success" [routerLink]="['editar', user.id]"><i class="fas fa-edit"></i></button></td>
-            <td><button type="button" class="btn btn-danger" (click)="delete(user.id, user.nome)"><i class="fas fa-trash"></i></button></td>
+        <tbody *ngIf="expenses.length > 0; else noRegisters">
+          <tr *ngFor="let expense of expenses">
+            <th scope="row">{{ expense.id }}</th>
+            <td>{{ expense.nome }}</td>
+            <td>{{ expense.data.split('T')[0] | date: 'shortDate' }}</td>
+            <td>{{ expense.valor | currency: 'BRL' }}</td>
+            <td><button type="button" class="btn btn-success" [routerLink]="['editar', expense.id]"><i class="fas fa-edit"></i></button></td>
+            <td><button type="button" class="btn btn-danger" (click)="delete(expense.id, expense.nome)"><i class="fas fa-trash"></i></button></td>
           </tr>
         </tbody>
         <ng-template #noRegisters>
           <tbody>
-            <tr><td class="text-center" colspan="7">Sem Registros!</td></tr>
+            <tr><td class="text-center" colspan="6">Sem Registros!</td></tr>
           </tbody>
         </ng-template>
       </table>
     </div>
-    <div *ngIf="!users">
+    <div *ngIf="!expenses">
       <div class="d-flex justify-content-center flex-column">
         <div class="d-flex justify-content-center">
           <div class="spinner-border" role="status">
