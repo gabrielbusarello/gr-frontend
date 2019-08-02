@@ -16,6 +16,8 @@ import { DeleteComponent } from './delete/delete.component';
 import { ToastrModule } from 'ngx-toastr';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxMaskModule } from 'ngx-mask';
+import { ServiceTypeComponent } from './service-type/service-type.component';
+import { EditServiceTypeComponent } from './service-type/edit-service-type/edit-service-type.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { NgxMaskModule } from 'ngx-mask';
     SidebarComponent,
     UsersComponent,
     EditUserComponent,
-    DeleteComponent
+    DeleteComponent,
+    ServiceTypeComponent,
+    EditServiceTypeComponent
   ],
   imports: [
     CommonModule,
