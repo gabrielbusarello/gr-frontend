@@ -21,6 +21,8 @@ import { ExpensesComponent } from './expenses/expenses.component';
 import { EditExpensesComponent } from './expenses/edit-expenses/edit-expenses.component';
 import { WorkToolsComponent } from './work-tools/work-tools.component';
 import { EditWtComponent } from './work-tools/edit-wt/edit-wt.component';
+import { ServiceTypeComponent } from './service-type/service-type.component';
+import { EditServiceTypeComponent } from './service-type/edit-service-type/edit-service-type.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { EditWtComponent } from './work-tools/edit-wt/edit-wt.component';
     EditExpensesComponent,
     WorkToolsComponent,
     EditWtComponent
+    ServiceTypeComponent,
+    EditServiceTypeComponent
   ],
   imports: [
     CommonModule,

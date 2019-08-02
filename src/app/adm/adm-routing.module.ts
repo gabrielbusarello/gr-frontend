@@ -6,6 +6,8 @@ import { HomeComponent } from './home/home.component';
 
 import { UsersComponent } from './users/users.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
+import { ServiceTypeComponent } from './service-type/service-type.component';
+import { EditServiceTypeComponent } from './service-type/edit-service-type/edit-service-type.component';
 
 import { ExpensesComponent } from './expenses/expenses.component';
 import { EditExpensesComponent } from './expenses/edit-expenses/edit-expenses.component';
@@ -36,6 +38,13 @@ const routes: Routes = [
           { path: '', component: WorkToolsComponent },
           { path: 'editar', component: EditWtComponent },
           { path: 'editar/:id', component: EditWtComponent }
+        ]
+      },
+      { path: 'tipo-servico', children:
+        [
+          { path: '', component: ServiceTypeComponent },
+          { path: 'editar', component: EditServiceTypeComponent },
+          { path: 'editar/:id', component: EditServiceTypeComponent }
         ]
       }
     ]
