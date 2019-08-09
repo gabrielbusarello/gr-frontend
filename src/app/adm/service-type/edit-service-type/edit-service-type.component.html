@@ -1,3 +1,57 @@
-<p>
-  edit-service-type works!
-</p>
+<div class="card">
+  <div class="card-body">
+    <div class="card-title">Nova Tipo de Serviço</div>
+    <form novalidate [formGroup]="form" (ngSubmit)="send()">
+      <div class="row">
+        <div class="form-group col-12" *ngIf="form.get('id').value && !new">
+          <label for="id">ID</label>
+          <input type="text" class="form-control text-danger" id="id" aria-label="ID" formControlName="id">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-12 col-sm-8">
+          <label for="name"><strong>*</strong> Nome</label>
+          <input
+            type="text"
+            class="form-control"
+            [class.is-valid]="form.get('name').touched && form.get('name').valid"
+            [class.is-invalid]="form.get('name').touched && form.get('name').invalid"
+            id="name" 
+            formControlName="name"
+          >
+          <div class="invalid-feedback">Nome inválido</div>
+        </div>
+        <div class="form-group col-12 col-sm-4">
+          <label for="estimatedPrice"><strong>*</strong> Valor Estimado</label>
+          <input
+            type="text"
+            class="form-control"
+            [class.is-valid]="form.get('estimatedPrice').touched && form.get('estimatedPrice').valid"
+            [class.is-invalid]="form.get('estimatedPrice').touched && form.get('estimatedPrice').invalid"
+            id="estimatedPrice" 
+            formControlName="estimatedPrice"
+          >
+          <div class="invalid-feedback">Valor estimado inválido</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-12">
+          <label for="description">Descrição</label>
+          <textarea
+            class="form-control"
+            [class.is-valid]="form.get('description').touched && form.get('description').valid"
+            [class.is-invalid]="form.get('description').touched && form.get('description').invalid"
+            id="description" 
+            formControlName="description"
+            rows="3"
+          ></textarea>
+          <div class="invalid-feedback">Descrição inválida</div>
+        </div>
+      </div>
+      <div>
+        <button type="button" class="btn btn-light" routerLink="/tipo-servico"><i class="fas fa-chevron-left"></i> Voltar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid || blockSend"><i class="fas fa-save"></i> Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>
