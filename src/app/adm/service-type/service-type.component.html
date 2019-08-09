@@ -1,3 +1,44 @@
-<p>
-  service-type works!
-</p>
+<div class="card">
+  <div class="card-body">
+    <div class="card-title d-flex justify-content-between mb-3">
+      <span>Tipos de Serviços</span>
+      <button type="button" class="btn btn-primary" routerLink="editar"><i class="fas fa-plus-circle mr-1"></i> <span class="d-none d-sm-inline-block">Adicionar</span></button>
+    </div>
+    <div class="table-responsive" *ngIf="serviceTypes">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Valor Estimado</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="serviceTypes.length > 0; else noRegisters">
+          <tr *ngFor="let serviceType of serviceTypes">
+            <th scope="row">{{ serviceType.id }}</th>
+            <td>{{ serviceType.nome }}</td>
+            <td>{{ serviceType.valorEstimado | currency: 'BRL' }}</td>
+            <td><button type="button" class="btn btn-success" [routerLink]="['editar', serviceType.id]"><i class="fas fa-edit"></i></button></td>
+            <td><button type="button" class="btn btn-danger" (click)="delete(serviceType.id, serviceType.nome)"><i class="fas fa-trash"></i></button></td>
+          </tr>
+        </tbody>
+        <ng-template #noRegisters>
+          <tbody>
+            <tr><td class="text-center" colspan="6">Sem Registros!</td></tr>
+          </tbody>
+        </ng-template>
+      </table>
+    </div>
+    <div *ngIf="!serviceTypes">
+      <div class="d-flex justify-content-center flex-column">
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Carregando...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
