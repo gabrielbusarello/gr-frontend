@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 
 import { UsersComponent } from './users/users.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
+
 import { ServiceTypeComponent } from './service-type/service-type.component';
 import { EditServiceTypeComponent } from './service-type/edit-service-type/edit-service-type.component';
 
@@ -14,6 +15,9 @@ import { EditExpensesComponent } from './expenses/edit-expenses/edit-expenses.co
 
 import { WorkToolsComponent } from './work-tools/work-tools.component';
 import { EditWtComponent } from './work-tools/edit-wt/edit-wt.component';
+
+import { ScheduleComponent } from './schedule/schedule.component';
+import { EditScheduleComponent } from './schedule/edit-schedule/edit-schedule.component';
 
 const routes: Routes = [
   { path: '', component: AdmComponent, children:
@@ -45,6 +49,13 @@ const routes: Routes = [
           { path: '', component: ServiceTypeComponent },
           { path: 'editar', component: EditServiceTypeComponent },
           { path: 'editar/:id', component: EditServiceTypeComponent }
+        ]
+      },
+      { path: 'agendamento', children:
+        [
+          { path: '', component: ScheduleComponent },
+          { path: 'editar', component: EditScheduleComponent },
+          { path: 'editar/:id', component: EditScheduleComponent }
         ]
       }
     ]

@@ -56,6 +56,9 @@ export class AdmComponent implements OnInit, OnDestroy {
       case 'tipo-servico':
         this.page = 'Tipo de Serviço';
         break;
+      case 'agendamento':
+        this.page = 'Agendamento';
+        break;
 
       default:
         this.page = undefined;
