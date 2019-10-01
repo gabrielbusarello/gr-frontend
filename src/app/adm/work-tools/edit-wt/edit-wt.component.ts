@@ -52,6 +52,10 @@ export class EditWtComponent implements OnInit, OnDestroy {
     this.subRoute.unsubscribe();
   }
 
+  /**
+   * getWorkToolById
+   * @param id: number
+   */
   private getWorkToolById(id: number): void {
     this.workToolService.getWorkToolById(id)
       .pipe(take(1))

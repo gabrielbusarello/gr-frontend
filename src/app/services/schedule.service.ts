@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import ServiceType from '../shared/service-type.model';
+import Schedule from '../shared/schedule.model';
 
 @Injectable()
 export class ScheduleService {
@@ -16,11 +16,11 @@ export class ScheduleService {
         .append('Authorization', localStorage.getItem('token'));
 
     /**
-     * getServiceTypes
+     * getSchedules
      */
-    public getServiceTypes(): Observable<any> {
+    public getSchedules(): Observable<any> {
         return this.http.get(
-            `${environment.urlApi}/tipo-servico`,
+            `${environment.urlApi}/agenda`,
             { headers: this.headers }
         ).pipe(
             map((response: HttpResponse<Observable<any>>) => response)
@@ -28,12 +28,12 @@ export class ScheduleService {
     }
 
     /**
-     * getServiceTypeById
+     * getScheduleById
      * @param id: number
      */
-    public getServiceTypeById(id: number): Observable<any> {
+    public getScheduleById(id: number): Observable<any> {
         return this.http.get(
-            `${environment.urlApi}/tipo-servico/${id}`,
+            `${environment.urlApi}/agenda/${id}`,
             { headers: this.headers }
         ).pipe(
             map((response: HttpResponse<Observable<any>>) => response)
@@ -41,23 +41,23 @@ export class ScheduleService {
     }
 
     /**
-     * sendServiceType
-     * @param serviceType: ServiceType
+     * sendSchedule
+     * @param schedule: Schedule
      * @param id?: number
      */
-    public sendServiceType(serviceType: ServiceType, id?: number): Observable<any> {
+    public sendSchedule(schedule: Schedule, id?: number): Observable<any> {
         if (id) {
             return this.http.put(
-                `${environment.urlApi}/tipo-servico/${id}`,
-                JSON.stringify(serviceType),
+                `${environment.urlApi}/agenda/${id}`,
+                JSON.stringify(schedule),
                 { headers: this.headers }
             ).pipe(
                 map((response: HttpResponse<Observable<any>>) => response)
             );
         } else {
             return this.http.post(
-                `${environment.urlApi}/tipo-servico`,
-                JSON.stringify(serviceType),
+                `${environment.urlApi}/agenda`,
+                JSON.stringify(schedule),
                 { headers: this.headers }
             ).pipe(
                 map((response: HttpResponse<Observable<any>>) => response)
@@ -66,12 +66,12 @@ export class ScheduleService {
     }
 
     /**
-     * deleteServiceType
+     * deleteSchedule
      * @param id: number
      */
-    public deleteServiceType(id: number): Observable<any> {
+    public deleteSchedule(id: number): Observable<any> {
         return this.http.delete(
-            `${environment.urlApi}/tipo-servico/${id}`,
+            `${environment.urlApi}/agenda/${id}`,
             { headers: this.headers }
         ).pipe(
             map((response: HttpResponse<Observable<any>>) => response)

@@ -1,3 +1,5 @@
+import { AddressResponse } from './address.model';
+
 export default class User {
     constructor(
         private cpf: string,
@@ -18,6 +20,7 @@ export interface UserResponse {
     permissao: string;
     criacao: string;
     alteracao: string;
+    endereco: AddressResponse;
 }
 
 export interface AuthResponse {

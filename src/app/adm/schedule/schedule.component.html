@@ -1,1 +1,46 @@
-<p>schedule works!</p>
+<div class="card">
+    <div class="card-body">
+      <div class="card-title d-flex justify-content-between mb-3">
+        <span>Agendamento</span>
+        <button type="button" class="btn btn-primary" routerLink="editar"><i class="fas fa-plus-circle mr-1"></i> <span class="d-none d-sm-inline-block">Adicionar</span></button>
+      </div>
+      <div class="table-responsive" *ngIf="schedules">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Data</th>
+              <th scope="col">Descrição</th>
+              <th scope="col">Situação</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody *ngIf="schedules.length > 0; else noRegisters">
+            <tr *ngFor="let schedule of schedules">
+              <th scope="row">{{ schedule.id }}</th>
+              <td>{{ (schedule.data.split('T')[0] | date: 'shortDate') + ' ' + schedule.hora }}</td>
+              <td>{{ schedule.descricao }}</td>
+              <td>{{ status[schedule.status] }}</td>
+              <td><button type="button" class="btn btn-success" [routerLink]="['editar', schedule.id]"><i class="fas fa-edit"></i></button></td>
+              <td><button type="button" class="btn btn-danger" (click)="delete(schedule.id, schedule.descricao)"><i class="fas fa-trash"></i></button></td>
+            </tr>
+          </tbody>
+          <ng-template #noRegisters>
+            <tbody>
+              <tr><td class="text-center" colspan="6">Sem Registros!</td></tr>
+            </tbody>
+          </ng-template>
+        </table>
+      </div>
+      <div *ngIf="!schedules">
+        <div class="d-flex justify-content-center flex-column">
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Carregando...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
