@@ -1,0 +1,98 @@
+<div class="modal-header">
+    <h4 class="modal-title">Endereço</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.close({ status: false })">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<form novalidate [formGroup]="form" (ngSubmit)="send()">
+    <div class="modal-body row">
+        <div class="form-group col-12 col-sm-3">
+            <label for="cep"><strong>*</strong> CEP</label>
+            <input
+                type="text"
+                class="form-control"
+                [class.is-valid]="form.get('cep').touched && form.get('cep').valid"
+                [class.is-invalid]="form.get('cep').touched && form.get('cep').invalid"
+                id="cep" 
+                formControlName="cep"
+            >
+            <div class="invalid-feedback">CEP inválido</div>
+        </div>
+        <div class="form-group col-12 col-sm-6">
+            <label for="street"><strong>*</strong> Logradouro</label>
+            <input
+                type="text"
+                class="form-control"
+                [class.is-valid]="form.get('street').touched && form.get('street').valid"
+                [class.is-invalid]="form.get('street').touched && form.get('street').invalid"
+                id="street" 
+                formControlName="street"
+            >
+            <div class="invalid-feedback">Logradouro inválido</div>
+        </div>
+        <div class="form-group col-12 col-sm-3">
+            <label for="number"><strong>*</strong> Número</label>
+            <input
+                type="text"
+                class="form-control"
+                [class.is-valid]="form.get('number').touched && form.get('number').valid"
+                [class.is-invalid]="form.get('number').touched && form.get('number').invalid"
+                id="number" 
+                formControlName="number"
+            >
+            <div class="invalid-feedback">Número inválido</div>
+        </div>
+        <div class="form-group col-12 col-sm-6">
+            <label for="complement">Complemento</label>
+            <input
+                type="text"
+                class="form-control"
+                [class.is-valid]="form.get('complement').touched && form.get('complement').valid"
+                [class.is-invalid]="form.get('complement').touched && form.get('complement').invalid"
+                id="complement" 
+                formControlName="complement"
+            >
+            <div class="invalid-feedback">Complemento inválido</div>
+        </div>
+        <div class="form-group col-12 col-sm-6">
+            <label for="district"><strong>*</strong> Bairro</label>
+            <input
+                type="text"
+                class="form-control"
+                [class.is-valid]="form.get('district').touched && form.get('district').valid"
+                [class.is-invalid]="form.get('district').touched && form.get('district').invalid"
+                id="district" 
+                formControlName="district"
+            >
+            <div class="invalid-feedback">Bairro inválido</div>
+        </div>
+        <div class="form-group col-12 col-sm-9">
+            <label for="city"><strong>*</strong> Cidade</label>
+            <input
+                type="text"
+                class="form-control"
+                [class.is-valid]="form.get('city').touched && form.get('city').valid"
+                [class.is-invalid]="form.get('city').touched && form.get('city').invalid"
+                id="city" 
+                formControlName="city"
+            >
+            <div class="invalid-feedback">Cidade inválida</div>
+        </div>
+        <div class="form-group col-12 col-sm-3">
+            <label for="state"><strong>*</strong> UF</label>
+            <input
+                type="text"
+                class="form-control"
+                [class.is-valid]="form.get('state').touched && form.get('state').valid"
+                [class.is-invalid]="form.get('state').touched && form.get('state').invalid"
+                id="state" 
+                formControlName="state"
+            >
+            <div class="invalid-feedback">UF inválido</div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-dark" [disabled]="form.invalid || blockSend" ngbAutofocus>Salvar</button>
+    </div>
+</form>

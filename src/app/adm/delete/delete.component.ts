@@ -8,7 +8,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class DeleteComponent implements OnInit {
   @Input() name: string;
-  @Output() public excluir: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(public activeModal: NgbActiveModal) { }
 

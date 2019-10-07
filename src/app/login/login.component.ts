@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('emailUsuario', response.data.usuario.email);
           localStorage.setItem('cpf', response.data.usuario.cpf);
           localStorage.setItem('permissao', response.data.usuario.permissao);
+          localStorage.setItem('endereco', JSON.stringify(response.data.usuario.endereco));
           this.router.navigate(['/']);
         },
         (err: HttpErrorResponse) => {

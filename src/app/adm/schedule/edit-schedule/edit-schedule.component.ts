@@ -9,6 +9,9 @@ import Schedule, { ScheduleResponse } from 'src/app/shared/schedule.model';
 import { DefaultResponse } from 'src/app/shared/app.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DatePickerFormatter } from 'src/app/shared/date-picker-formatter.util';
+import Address, { AddressResponse } from 'src/app/shared/address.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddressComponent } from '../../address/address.component';
 
 @Component({
   selector: 'app-edit-schedule',
@@ -35,10 +38,15 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
     private scheduleService: ScheduleService,
     private router: Router,
     private utils: UtilsService,
-    private datePickerFormatter: DatePickerFormatter
+    private datePickerFormatter: DatePickerFormatter,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit() {
+    const address = JSON.parse(localStorage.getItem('endereco'));
+    if (address) {
+      this.form.controls.address.setValue(address);
+    }
     this.subRoute = this.route.params.subscribe((param: Params) => {
       if (param.id) {
         this.new = false;
@@ -70,7 +78,7 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
               { onlySelf: true }
             );
             this.form.controls.hour.setValue(response.data.hora, { onlySelf: true });
-            this.form.controls.address.setValue(response.data.endereco.id, { onlySelf: true });
+            this.form.controls.address.setValue(response.data.endereco, { onlySelf: true });
           } else {
             this.utils.showToast(response.status, response.mensagem);
             this.router.navigate(['/agendamento']);
@@ -83,17 +91,27 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
       );
   }
 
+  public addAddress(): void {
+    const modal = this.modalService.open(AddressComponent, { size: 'lg', centered: true });
+    modal.result.then(resultado => {
+      this.form.controls.address.setValue(resultado.endereco);
+    }, () => {});
+  }
+
   /**
    * send
    */
   public send(): void {
     this.blockSend = true;
+    const address: Address = new Address(
+      this.form.controls.address.value.id
+    );
     const schedule: Schedule = new Schedule(
       this.form.controls.description.value,
       this.datePickerFormatter.formatToAPI(this.form.controls.date.value),
       this.form.controls.hour.value,
       'P',
-      this.form.controls.address.value
+      address
     );
 
     this.scheduleService.sendSchedule(schedule, this.form.controls.id.value)

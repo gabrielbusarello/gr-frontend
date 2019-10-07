@@ -1,4 +1,4 @@
-import { AddressResponse } from './address.model';
+import Address, { AddressResponse } from './address.model';
 
 export default class User {
     constructor(
@@ -7,7 +7,8 @@ export default class User {
         private email: string,
         private senha: string,
         private telefone: string,
-        private permissao: string
+        private permissao: string,
+        private endereco?: Address
     ) { }
 }
 

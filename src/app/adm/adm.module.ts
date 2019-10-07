@@ -25,6 +25,7 @@ import { ServiceTypeComponent } from './service-type/service-type.component';
 import { EditServiceTypeComponent } from './service-type/edit-service-type/edit-service-type.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { EditScheduleComponent } from './schedule/edit-schedule/edit-schedule.component';
+import { AddressComponent } from './address/address.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { EditScheduleComponent } from './schedule/edit-schedule/edit-schedule.co
     ServiceTypeComponent,
     EditServiceTypeComponent,
     ScheduleComponent,
-    EditScheduleComponent
+    EditScheduleComponent,
+    AddressComponent
   ],
   imports: [
     CommonModule,
@@ -60,7 +62,7 @@ import { EditScheduleComponent } from './schedule/edit-schedule/edit-schedule.co
     NgSelectModule,
     NgxMaskModule.forRoot()
   ],
-  entryComponents: [ DeleteComponent ],
+  entryComponents: [ DeleteComponent, AddressComponent ],
   exports: [
     DeleteComponent
   ],
