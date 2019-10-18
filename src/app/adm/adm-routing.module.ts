@@ -19,6 +19,9 @@ import { EditWtComponent } from './work-tools/edit-wt/edit-wt.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { EditScheduleComponent } from './schedule/edit-schedule/edit-schedule.component';
 
+import { ServiceOrderComponent } from './service-order/service-order.component';
+import { EditServiceOrderComponent } from './service-order/edit-service-order/edit-service-order.component';
+
 const routes: Routes = [
   { path: '', component: AdmComponent, children:
     [
@@ -56,6 +59,13 @@ const routes: Routes = [
           { path: '', component: ScheduleComponent },
           { path: 'editar', component: EditScheduleComponent },
           { path: 'editar/:id', component: EditScheduleComponent }
+        ]
+      },
+      { path: 'ordem-servico', children:
+        [
+          { path: '', component: ServiceOrderComponent },
+          { path: 'editar', component: EditServiceOrderComponent },
+          { path: 'editar/:id', component: EditServiceOrderComponent }
         ]
       }
     ]

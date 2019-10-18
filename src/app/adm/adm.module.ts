@@ -26,6 +26,8 @@ import { EditServiceTypeComponent } from './service-type/edit-service-type/edit-
 import { ScheduleComponent } from './schedule/schedule.component';
 import { EditScheduleComponent } from './schedule/edit-schedule/edit-schedule.component';
 import { AddressComponent } from './address/address.component';
+import { ServiceOrderComponent } from './service-order/service-order.component';
+import { EditServiceOrderComponent } from './service-order/edit-service-order/edit-service-order.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { AddressComponent } from './address/address.component';
     EditServiceTypeComponent,
     ScheduleComponent,
     EditScheduleComponent,
-    AddressComponent
+    AddressComponent,
+    ServiceOrderComponent,
+    EditServiceOrderComponent
   ],
   imports: [
     CommonModule,
