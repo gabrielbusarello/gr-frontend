@@ -1,1 +1,76 @@
-<p>edit-service-order works!</p>
+<div class="card">
+    <div class="card-body">
+      <div class="card-title">Nova Ordem de Serviço</div>
+      <form novalidate [formGroup]="form" (ngSubmit)="send()">
+        <div class="row">
+          <div class="form-group col-12" *ngIf="form.get('id').value && !new">
+            <label for="id">ID</label>
+            <input type="text" class="form-control text-danger" id="id" aria-label="ID" formControlName="id">
+          </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-10 col-sm-6">
+                <label for="schedule"><strong>*</strong> Agendamento</label>
+                <ng-select
+                    [searchable]="false"
+                    [items]="schedules"
+                    bindLabel="cep"
+                    bindValue="id"
+                    labelForId="schedule"
+                    placeholder="Selecione um agendamento"
+                    formControlName="schedule"
+                ></ng-select>
+                <div class="invalid-feedback" [class.d-block]="form.get('schedule').touched && form.get('schedule').invalid">Agendamento inválido</div>
+            </div>
+            <div class="form-group col-12 col-sm-3">
+                <label for="date"><strong>*</strong> Data</label>
+                <div class="input-group">
+                    <input
+                    class="form-control"
+                    ngbDatepicker
+                    #date="ngbDatepicker"
+                    [class.is-valid]="form.get('date').touched && form.get('date').valid"
+                    [class.is-invalid]="form.get('date').touched && form.get('date').invalid"
+                    id="date"
+                    formControlName="date"
+                    >
+                    <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" (click)="date.toggle()" type="button"><i class="fas fa-calendar-alt"></i></button>
+                    </div>
+                </div>
+                <div class="invalid-feedback">Data inválida</div>
+            </div>
+            <div class="form-group col-12 col-sm-3">
+                <label for="hour"><strong>*</strong> Hora</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    [class.is-valid]="form.get('hour').touched && form.get('hour').valid"
+                    [class.is-invalid]="form.get('hour').touched && form.get('hour').invalid"
+                    id="hour" 
+                    formControlName="hour"
+                >
+                <div class="invalid-feedback">Hora inválida</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-12">
+                <label for="description"><strong>*</strong> Descrição</label>
+                <textarea
+                    class="form-control"
+                    [class.is-valid]="form.get('description').touched && form.get('description').valid"
+                    [class.is-invalid]="form.get('description').touched && form.get('description').invalid"
+                    id="description" 
+                    formControlName="description"
+                    rows="3"
+                ></textarea>
+                <div class="invalid-feedback">Descrição inválida</div>
+            </div>
+        </div>
+        <div>
+            <button type="button" class="btn btn-light" routerLink="/agendamento"><i class="fas fa-chevron-left"></i> Voltar</button>
+            <button type="submit" class="btn btn-primary" [disabled]="form.invalid || blockSend"><i class="fas fa-save"></i> Salvar</button>
+        </div>
+      </form>
+    </div>
+</div>

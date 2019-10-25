@@ -1,1 +1,46 @@
-<p>service-order works!</p>
+<div class="card">
+    <div class="card-body">
+      <div class="card-title d-flex justify-content-between mb-3">
+        <span>Ordem de Serviço</span>
+        <button type="button" class="btn btn-primary" routerLink="editar"><i class="fas fa-plus-circle mr-1"></i> <span class="d-none d-sm-inline-block">Adicionar</span></button>
+      </div>
+      <div class="table-responsive" *ngIf="serviceOrders">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Data</th>
+              <th scope="col">Descrição</th>
+              <th scope="col">Situação</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody *ngIf="serviceOrders.length > 0; else noRegisters">
+            <tr *ngFor="let serviceOrder of serviceOrders">
+              <th scope="row">{{ serviceOrder.id }}</th>
+              <td>{{ (serviceOrder.data.split('T')[0] | date: 'shortDate') + ' ' + serviceOrder.hora }}</td>
+              <td>{{ serviceOrder.descricao }}</td>
+              <td>{{ status[serviceOrder.status] }}</td>
+              <td><button type="button" class="btn btn-success" [routerLink]="['editar', serviceOrder.id]"><i class="fas fa-edit"></i></button></td>
+              <td><button type="button" class="btn btn-danger" (click)="delete(serviceOrder.id, serviceOrder.descricao)"><i class="fas fa-trash"></i></button></td>
+            </tr>
+          </tbody>
+          <ng-template #noRegisters>
+            <tbody>
+              <tr><td class="text-center" colspan="6">Sem Registros!</td></tr>
+            </tbody>
+          </ng-template>
+        </table>
+      </div>
+      <div *ngIf="!serviceOrders">
+        <div class="d-flex justify-content-center flex-column">
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Carregando...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

@@ -4,10 +4,10 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import Schedule, { AdmitSchedule } from '../shared/schedule.model';
+import ServiceOrder from '../shared/service-order.model';
 
 @Injectable()
-export class ScheduleService {
+export class ServiceOrderService {
     constructor( private http: HttpClient ) { }
 
     private headers: HttpHeaders = new HttpHeaders()
@@ -16,11 +16,11 @@ export class ScheduleService {
         .append('Authorization', localStorage.getItem('token'));
 
     /**
-     * getSchedules
+     * getServiceOrders
      */
-    public getSchedules(): Observable<any> {
+    public getServiceOrders(): Observable<any> {
         return this.http.get(
-            `${environment.urlApi}/agenda`,
+            `${environment.urlApi}/ordem-servico`,
             { headers: this.headers }
         ).pipe(
             map((response: HttpResponse<Observable<any>>) => response)
@@ -28,12 +28,12 @@ export class ScheduleService {
     }
 
     /**
-     * getScheduleById
+     * getServiceOrderById
      * @param id: number
      */
-    public getScheduleById(id: number): Observable<any> {
+    public getServiceOrderById(id: number): Observable<any> {
         return this.http.get(
-            `${environment.urlApi}/agenda/${id}`,
+            `${environment.urlApi}/ordem-servico/${id}`,
             { headers: this.headers }
         ).pipe(
             map((response: HttpResponse<Observable<any>>) => response)
@@ -41,37 +41,23 @@ export class ScheduleService {
     }
 
     /**
-     * admitSchedule
-     * @param id: number
-     */
-    public admitSchedule(id: number, admit: AdmitSchedule): Observable<any> {
-        return this.http.patch(
-            `${environment.urlApi}/agenda/${id}`,
-            JSON.stringify(admit),
-            { headers: this.headers }
-        ).pipe(
-            map((response: HttpResponse<Observable<any>>) => response)
-        );
-    }
-
-    /**
-     * sendSchedule
-     * @param schedule: Schedule
+     * sendServiceOrder
+     * @param serviceOrder: ServiceOrder
      * @param id?: number
      */
-    public sendSchedule(schedule: Schedule, id?: number): Observable<any> {
+    public sendServiceOrder(serviceOrder: ServiceOrder, id?: number): Observable<any> {
         if (id) {
             return this.http.put(
-                `${environment.urlApi}/agenda/${id}`,
-                JSON.stringify(schedule),
+                `${environment.urlApi}/ordem-servico/${id}`,
+                JSON.stringify(serviceOrder),
                 { headers: this.headers }
             ).pipe(
                 map((response: HttpResponse<Observable<any>>) => response)
             );
         } else {
             return this.http.post(
-                `${environment.urlApi}/agenda`,
-                JSON.stringify(schedule),
+                `${environment.urlApi}/ordem-servico`,
+                JSON.stringify(serviceOrder),
                 { headers: this.headers }
             ).pipe(
                 map((response: HttpResponse<Observable<any>>) => response)
@@ -80,12 +66,12 @@ export class ScheduleService {
     }
 
     /**
-     * deleteSchedule
+     * deleteServiceOrder
      * @param id: number
      */
-    public deleteSchedule(id: number): Observable<any> {
+    public deleteServiceOrder(id: number): Observable<any> {
         return this.http.delete(
-            `${environment.urlApi}/agenda/${id}`,
+            `${environment.urlApi}/ordem-servico/${id}`,
             { headers: this.headers }
         ).pipe(
             map((response: HttpResponse<Observable<any>>) => response)

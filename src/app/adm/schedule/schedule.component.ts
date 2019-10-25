@@ -7,8 +7,8 @@ import { DeleteComponent } from '../delete/delete.component';
 import { ScheduleService } from 'src/app/services/schedule.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
-import { ScheduleResponse } from 'src/app/shared/schedule.model';
-import { DefaultResponse } from 'src/app/shared/app.model';
+import { ScheduleResponse, AdmitSchedule } from 'src/app/shared/schedule.model';
+import { DefaultResponse, DefaultId } from 'src/app/shared/app.model';
 
 @Component({
   selector: 'app-schedule',
@@ -24,6 +24,7 @@ export class ScheduleComponent implements OnInit {
 
   public status: any = {
     P: 'Pendente',
+    A: 'Assumido',
     F: 'Finalizado',
     C: 'Cancelado'
   };
@@ -49,6 +50,33 @@ export class ScheduleComponent implements OnInit {
         },
         (err: HttpErrorResponse) => {
           this.utils.showToast(err.error.status, err.error.mensagem || err.message);
+        }
+      );
+  }
+
+  /**
+   * admit
+   * @param id: number
+   */
+  public admit(id: number) {
+    const scheduleId: DefaultId = new DefaultId(
+      Number.parseInt(localStorage.getItem('idUsuario'), 10)
+    );
+    const admit: AdmitSchedule = new AdmitSchedule(
+      'A',
+      scheduleId
+    );
+
+    this.scheduleService.admitSchedule(id, admit)
+      .pipe(take(1))
+      .subscribe(
+        (response: DefaultResponse<ScheduleResponse>) => {
+          this.utils.showToast(response.status, response.mensagem);
+          this.getSchedules();
+        },
+        (err: HttpErrorResponse) => {
+          this.utils.showToast(err.error.status, err.error.mensagem || err.message);
+          this.getSchedules();
         }
       );
   }

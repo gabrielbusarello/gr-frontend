@@ -1,5 +1,6 @@
 import { UserResponse } from './user.model';
 import Address, { AddressResponse } from './address.model';
+import { DefaultId } from './app.model';
 
 export default class Schedule {
     constructor(
@@ -8,6 +9,13 @@ export default class Schedule {
         private hora: number,
         private status: string,
         private endereco: Address
+    ) { }
+}
+
+export class AdmitSchedule {
+    constructor(
+        private status: string,
+        private prestador: DefaultId
     ) { }
 }
 
