@@ -11,8 +11,8 @@ export default class ServiceOrder {
         private hora: string,
         private status: string,
         private agenda: DefaultId,
-        private produto: Product,
-        private servico: Service
+        private produto: Array<Product>,
+        private servico: Array<Service>
     ) { }
 }
 
@@ -42,8 +42,8 @@ export interface ServiceOrderResponse {
     criacao: string;
     alteracao: string;
     agenda: ScheduleResponse;
-    produto: ProductResponse;
-    servico: ServiceResponse;
+    produto: Array<ProductResponse>;
+    servico: Array<ServiceResponse>;
     prestador: UserResponse;
 }
 

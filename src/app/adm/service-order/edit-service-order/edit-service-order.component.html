@@ -14,12 +14,19 @@
                 <ng-select
                     [searchable]="false"
                     [items]="schedules"
-                    bindLabel="cep"
+                    bindLabel="descricao"
                     bindValue="id"
                     labelForId="schedule"
                     placeholder="Selecione um agendamento"
                     formControlName="schedule"
-                ></ng-select>
+                >
+                    <ng-template ng-label-tmp let-item="item">
+                        {{ item.id }} - {{ item.descricao }}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item">
+                        {{ item.id }} - {{ item.descricao }}
+                    </ng-template>
+                </ng-select>
                 <div class="invalid-feedback" [class.d-block]="form.get('schedule').touched && form.get('schedule').invalid">Agendamento inválido</div>
             </div>
             <div class="form-group col-12 col-sm-3">
@@ -66,6 +73,9 @@
                 ></textarea>
                 <div class="invalid-feedback">Descrição inválida</div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-12">Produtos <button type="button" class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i></button></div>
         </div>
         <div>
             <button type="button" class="btn btn-light" routerLink="/agendamento"><i class="fas fa-chevron-left"></i> Voltar</button>

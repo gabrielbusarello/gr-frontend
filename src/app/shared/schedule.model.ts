@@ -12,6 +12,13 @@ export default class Schedule {
     ) { }
 }
 
+export class ScheduleFilter {
+    constructor(
+        private status?: string,
+        private idPrestador?: number
+    ) { }
+}
+
 export class AdmitSchedule {
     constructor(
         private status: string,

@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import Schedule, { AdmitSchedule } from '../shared/schedule.model';
+import Schedule, { AdmitSchedule, ScheduleFilter } from '../shared/schedule.model';
 
 @Injectable()
 export class ScheduleService {
@@ -17,10 +17,19 @@ export class ScheduleService {
 
     /**
      * getSchedules
+     * @param filter?: ScheduleFilter
      */
-    public getSchedules(): Observable<any> {
+    public getSchedules(filter?: ScheduleFilter): Observable<any> {
+        let filterS = '';
+        if (filter) {
+            for (const key of Object.keys(filter)) {
+                if (filter[key]) {
+                    filterS += filterS === '' ? `?${key}=${filter[key]}` : `&${key}=${filter[key]}`;
+                }
+            }
+        }
         return this.http.get(
-            `${environment.urlApi}/agenda`,
+            `${environment.urlApi}/agenda${filterS}`,
             { headers: this.headers }
         ).pipe(
             map((response: HttpResponse<Observable<any>>) => response)
