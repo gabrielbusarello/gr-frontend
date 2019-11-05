@@ -75,9 +75,120 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12">Produtos <button type="button" class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i></button></div>
+            <div class="col-12">Produtos <button type="button" class="btn btn-sm btn-primary ml-2" (click)="addProduct()"><i class="fas fa-plus-circle"></i></button></div>
         </div>
-        <div>
+        <div class="card mt-3" *ngIf="form.get('products').value.length > 0">
+            <div class="card-body" formArrayName="products">
+                <div
+                    class="row"
+                    *ngFor="let product of form.get('products').controls; let i = index"
+                    [formGroupName]="i"
+                >
+                    <div class="form-group col-12 col-sm-6">
+                      <label for="name"><strong>*</strong> Nome</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        [class.is-valid]="form.get('products').get([i]).get('name').touched && form.get('products').get([i]).get('name').valid"
+                        [class.is-invalid]="form.get('products').get([i]).get('name').touched && form.get('products').get([i]).get('name').invalid"
+                        id="name" 
+                        formControlName="name"
+                      >
+                      <div class="invalid-feedback">Nome inválido</div>
+                    </div>
+                    <div class="form-group col-12 col-sm-2">
+                      <label for="quantity"><strong>*</strong> Quantidade</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        [class.is-valid]="form.get('products').get([i]).get('quantity').touched && form.get('products').get([i]).get('quantity').valid"
+                        [class.is-invalid]="form.get('products').get([i]).get('quantity').touched && form.get('products').get([i]).get('quantity').invalid"
+                        id="quantity" 
+                        formControlName="quantity"
+                      >
+                      <div class="invalid-feedback">Quantidade inválida</div>
+                    </div>
+                    <div class="form-group col-12 col-sm-3">
+                      <label for="value"><strong>*</strong> Valor</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        [class.is-valid]="form.get('products').get([i]).get('value').touched && form.get('products').get([i]).get('value').valid"
+                        [class.is-invalid]="form.get('products').get([i]).get('value').touched && form.get('products').get([i]).get('value').invalid"
+                        id="value" 
+                        formControlName="value"
+                      >
+                      <div class="invalid-feedback">Valor inválido</div>
+                    </div>
+                    <div class="col-2 col-sm-1 mt-sm-3 pt-sm-3">
+                        <button type="button" class="btn btn-sm btn-primary" (click)="removeProduct(i)"><i class="fas fa-minus-circle"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">Serviços <button type="button" class="btn btn-sm btn-primary ml-2" (click)="addService()"><i class="fas fa-plus-circle"></i></button></div>
+        </div>
+        <div class="card mt-3" *ngIf="form.get('services').value.length > 0">
+            <div class="card-body" formArrayName="services">
+                <div
+                    class="row"
+                    *ngFor="let product of form.get('services').controls; let i = index"
+                    [formGroupName]="i"
+                >
+                    <div class="form-group col-10 col-sm-4">
+                        <label for="serviceType"><strong>*</strong> Tipo de Serviço</label>
+                        <ng-select
+                            [searchable]="false"
+                            [items]="serviceTypes"
+                            bindLabel="descricao"
+                            bindValue="id"
+                            labelForId="serviceType"
+                            placeholder="Selecione um tipo de serviço"
+                            formControlName="serviceType"
+                        >
+                            <ng-template ng-label-tmp let-item="item">
+                                {{ item.id }} - {{ item.descricao }}
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item">
+                                {{ item.id }} - {{ item.descricao }}
+                            </ng-template>
+                        </ng-select>
+                        <div class="invalid-feedback" [class.d-block]="form.get('services').get([i]).get('serviceType').touched && form.get('services').get([i]).get('serviceType').invalid">Tipo de Serviço inválido</div>
+                    </div>
+                    <div class="form-group col-12 col-sm-4">
+                      <label for="name"><strong>*</strong> Nome</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        [class.is-valid]="form.get('services').get([i]).get('name').touched && form.get('services').get([i]).get('name').valid"
+                        [class.is-invalid]="form.get('services').get([i]).get('name').touched && form.get('services').get([i]).get('name').invalid"
+                        id="name" 
+                        formControlName="name"
+                      >
+                      <div class="invalid-feedback">Nome inválido</div>
+                    </div>
+                    <div class="form-group col-12 col-sm-3">
+                      <label for="timeSpent"><strong>*</strong> Tempo Gasto</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        [class.is-valid]="form.get('services').get([i]).get('timeSpent').touched && form.get('services').get([i]).get('timeSpent').valid"
+                        [class.is-invalid]="form.get('services').get([i]).get('timeSpent').touched && form.get('services').get([i]).get('timeSpent').invalid"
+                        id="timeSpent" 
+                        formControlName="timeSpent"
+                        mask="00:00"
+                        [dropSpecialCharacters]="false"
+                      >
+                      <div class="invalid-feedback">Tempo Gasto inválido</div>
+                    </div>
+                    <div class="col-2 col-sm-1 mt-sm-3 pt-sm-3">
+                        <button type="button" class="btn btn-sm btn-primary" (click)="removeService(i)"><i class="fas fa-minus-circle"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3">
             <button type="button" class="btn btn-light" routerLink="/agendamento"><i class="fas fa-chevron-left"></i> Voltar</button>
             <button type="submit" class="btn btn-primary" [disabled]="form.invalid || blockSend"><i class="fas fa-save"></i> Salvar</button>
         </div>

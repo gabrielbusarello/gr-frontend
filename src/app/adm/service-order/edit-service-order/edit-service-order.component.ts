@@ -112,6 +112,58 @@ export class EditServiceOrderComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * addProduct
+   */
+  public addProduct(): void {
+    (this.form.controls.products as FormArray).push(this.createProduct());
+  }
+
+  /**
+   * removeProduct
+   * @param index: number
+   */
+  public removeProduct(index: number): void {
+    (this.form.controls.products as FormArray).removeAt(index);
+  }
+
+  /**
+   * createProduct
+   */
+  private createProduct(): FormGroup {
+    return new FormGroup({
+      name:     new FormControl(null, [ Validators.required, Validators.maxLength(100) ]),
+      value:    new FormControl(null, [ Validators.required, Validators.maxLength(10), Validators.pattern(PRICE_REGEXP)]),
+      quantity: new FormControl(null, [ Validators.required, Validators.maxLength(5), Validators.pattern('[0-9]*') ]),
+    });
+  }
+
+  /**
+   * addService
+   */
+  public addService(): void {
+    (this.form.controls.services as FormArray).push(this.createService());
+  }
+
+  /**
+   * removeService
+   * @param index: number
+   */
+  public removeService(index: number): void {
+    (this.form.controls.services as FormArray).removeAt(index);
+  }
+
+  /**
+   * createService
+   */
+  private createService(): FormGroup {
+    return new FormGroup({
+      serviceType:  new FormControl(null, [ Validators.required ]),
+      name:         new FormControl(null, [ Validators.required, Validators.maxLength(100) ]),
+      timeSpent:    new FormControl(null, [ Validators.required, Validators.maxLength(8) ]),
+    });
+  }
+
+  /**
    * send
    */
   public send(): void {
