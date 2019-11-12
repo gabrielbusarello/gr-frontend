@@ -47,7 +47,7 @@ export interface ServiceOrderResponse {
     prestador: UserResponse;
 }
 
-interface ProductResponse {
+export interface ProductResponse {
     id: number;
     nome: string;
     valor: number;
@@ -56,7 +56,7 @@ interface ProductResponse {
     alteracao: string;
 }
 
-interface ServiceResponse {
+export interface ServiceResponse {
     id: number;
     descricao: string;
     tempoGasto: string;
