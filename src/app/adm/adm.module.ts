@@ -28,6 +28,7 @@ import { EditScheduleComponent } from './schedule/edit-schedule/edit-schedule.co
 import { AddressComponent } from './address/address.component';
 import { ServiceOrderComponent } from './service-order/service-order.component';
 import { EditServiceOrderComponent } from './service-order/edit-service-order/edit-service-order.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { EditServiceOrderComponent } from './service-order/edit-service-order/ed
     EditScheduleComponent,
     AddressComponent,
     ServiceOrderComponent,
-    EditServiceOrderComponent
+    EditServiceOrderComponent,
+    ChatComponent
   ],
   imports: [
     CommonModule,
@@ -66,7 +68,7 @@ import { EditServiceOrderComponent } from './service-order/edit-service-order/ed
     NgSelectModule,
     NgxMaskModule.forRoot()
   ],
-  entryComponents: [ DeleteComponent, AddressComponent ],
+  entryComponents: [ DeleteComponent, AddressComponent, ChatComponent ],
   exports: [
     DeleteComponent
   ],

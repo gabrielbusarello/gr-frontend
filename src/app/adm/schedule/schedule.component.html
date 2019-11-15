@@ -15,6 +15,7 @@
               <th></th>
               <th></th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody *ngIf="schedules.length > 0; else noRegisters">
@@ -23,6 +24,7 @@
               <td>{{ (schedule.data.split('T')[0] | date: 'shortDate') + ' ' + schedule.hora }}</td>
               <td>{{ schedule.descricao }}</td>
               <td>{{ status[schedule.status] }}</td>
+              <td><button type="button" class="btn btn-light" *ngIf="schedule.status !== 'P'" (click)="chat(schedule.id)"><i class="fas fa-comments"></i></button></td>
               <td><button type="button" class="btn btn-secondary" *ngIf="schedule.status === 'P'" (click)="admit(schedule.id)"><i class="fas fa-user-check"></i></button></td>
               <td><button type="button" class="btn btn-success" [routerLink]="['editar', schedule.id]"><i class="fas fa-edit"></i></button></td>
               <td><button type="button" class="btn btn-danger" (click)="delete(schedule.id, schedule.descricao)"><i class="fas fa-trash"></i></button></td>

@@ -9,6 +9,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 
 import { ScheduleResponse, AdmitSchedule } from 'src/app/shared/schedule.model';
 import { DefaultResponse, DefaultId } from 'src/app/shared/app.model';
+import { ChatComponent } from '../chat/chat.component';
 
 @Component({
   selector: 'app-schedule',
@@ -89,6 +90,25 @@ export class ScheduleComponent implements OnInit {
   public delete(id: number, name: string) {
     const modal = this.modalService.open(DeleteComponent, { centered: true });
     modal.componentInstance.name = name;
+    modal.result.then(resultado => {
+      if (resultado.status) {
+        this.scheduleService.deleteSchedule(id)
+          .subscribe(
+            (response: DefaultResponse<ScheduleResponse>) => {
+              this.utils.showToast(response.status, response.mensagem);
+              this.getSchedules();
+            },
+            (err: HttpErrorResponse) => {
+              this.utils.showToast(err.error.status, err.error.mensagem || err.message);
+            }
+          );
+      }
+    }, () => {});
+  }
+
+  public chat(id: number) {
+    const modal = this.modalService.open(ChatComponent, { centered: true });
+    modal.componentInstance.name = 'HEHE';
     modal.result.then(resultado => {
       if (resultado.status) {
         this.scheduleService.deleteSchedule(id)
