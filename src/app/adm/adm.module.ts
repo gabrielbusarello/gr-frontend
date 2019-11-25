@@ -29,6 +29,7 @@ import { AddressComponent } from './address/address.component';
 import { ServiceOrderComponent } from './service-order/service-order.component';
 import { EditServiceOrderComponent } from './service-order/edit-service-order/edit-service-order.component';
 import { ChatComponent } from './chat/chat.component';
+import { PermissionGuard } from '../services/permission-guard.service';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,6 @@ import { ChatComponent } from './chat/chat.component';
   exports: [
     DeleteComponent
   ],
-  providers: [{ provide: NgbDateParserFormatter, useClass: DatePickerFormatter }, DatePickerFormatter]
+  providers: [PermissionGuard, { provide: NgbDateParserFormatter, useClass: DatePickerFormatter }, DatePickerFormatter]
 })
 export class AdmModule { }

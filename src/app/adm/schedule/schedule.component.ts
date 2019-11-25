@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { take } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -106,9 +106,13 @@ export class ScheduleComponent implements OnInit {
     }, () => {});
   }
 
+  /**
+   * chat
+   * @param id: number
+   */
   public chat(id: number) {
-    const modal = this.modalService.open(ChatComponent, { centered: true });
-    modal.componentInstance.name = 'HEHE';
+    const modal = this.modalService.open(ChatComponent, { centered: true, size: 'lg' });
+    modal.componentInstance.idSchedule = id;
     modal.result.then(resultado => {
       if (resultado.status) {
         this.scheduleService.deleteSchedule(id)

@@ -12,4 +12,8 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
   }
 
+  get permission(): string {
+    return localStorage.getItem('permissao');
+  }
+
 }

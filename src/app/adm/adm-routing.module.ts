@@ -21,6 +21,7 @@ import { EditScheduleComponent } from './schedule/edit-schedule/edit-schedule.co
 
 import { ServiceOrderComponent } from './service-order/service-order.component';
 import { EditServiceOrderComponent } from './service-order/edit-service-order/edit-service-order.component';
+import { PermissionGuard } from '../services/permission-guard.service';
 
 const routes: Routes = [
   { path: '', component: AdmComponent, children:
@@ -31,28 +32,36 @@ const routes: Routes = [
           { path: '', component: UsersComponent },
           { path: 'editar', component: EditUserComponent },
           { path: 'editar/:id', component: EditUserComponent }
-        ]
+        ],
+        canActivate: [ PermissionGuard ],
+        data: { role: ['I'] }
       },
       { path: 'despesas', children:
         [
           { path: '', component: ExpensesComponent },
           { path: 'editar', component: EditExpensesComponent },
           { path: 'editar/:id', component: EditExpensesComponent }
-        ]
+        ],
+        canActivate: [ PermissionGuard ],
+        data: { role: ['I', 'P'] }
       },
       { path: 'ferramentas', children:
         [
           { path: '', component: WorkToolsComponent },
           { path: 'editar', component: EditWtComponent },
           { path: 'editar/:id', component: EditWtComponent }
-        ]
+        ],
+        canActivate: [ PermissionGuard ],
+        data: { role: ['I', 'P'] }
       },
       { path: 'tipo-servico', children:
         [
           { path: '', component: ServiceTypeComponent },
           { path: 'editar', component: EditServiceTypeComponent },
           { path: 'editar/:id', component: EditServiceTypeComponent }
-        ]
+        ],
+        canActivate: [ PermissionGuard ],
+        data: { role: ['I', 'P'] }
       },
       { path: 'agendamento', children:
         [
@@ -66,7 +75,9 @@ const routes: Routes = [
           { path: '', component: ServiceOrderComponent },
           { path: 'editar', component: EditServiceOrderComponent },
           { path: 'editar/:id', component: EditServiceOrderComponent }
-        ]
+        ],
+        canActivate: [ PermissionGuard ],
+        data: { role: ['I', 'P'] }
       }
     ]
   }
